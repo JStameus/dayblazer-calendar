@@ -1,0 +1,16 @@
+
+
+header {
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    #header_viewControl, #header_modeControl {
+        display: flex;
+        flex-direction: row;
+    }
+
+    background-color: $bg-color-normal;
+    border-bottom: 2px solid blue;
+}
