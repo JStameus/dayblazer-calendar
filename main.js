@@ -1,16 +1,34 @@
+// TODO: These hardcoded values must be handled dynamically and securely when I
+// can use a database, obviously.
+const userData = {
+    user: "jstameus",
+    token: "abc123"
+}
+const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+        "Content-Type": "application/json",
+        "User-Name": `${userData.user}`,
+        "Board-Token": `${userData.token}`
+    },
+    //body: JSON.stringify(userData)
+}
 const BASEURL = "http://localhost:3000/api";
-var apiQuery = "u=jstameus";
+const QUERY = `u=${userData.user}`;
 var eventList = [];
 
 function main() {
-    // TODO: Events should be fetched from the API before calendar initialization
-    fetch(`${BASEURL}/${apiQuery}`)
+    fetch(`${BASEURL}/${QUERY}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-            // TODO: I am getting an array of data here. Is there a problem in
-            // the client or the API?
-            data[0].events.forEach(obj => eventList.push(obj));
+            data.events.forEach(obj => {
+                eventList.push(obj);
+            });
             initCalendar();
+        })
+        .catch(err => {
+            console.log(`ERROR: ${err}`);
         });
 }
 
