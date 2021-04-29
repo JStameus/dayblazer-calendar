@@ -1,4 +1,5 @@
-// TODO: Some of these should probably be supplied by the server
+// TODO: Some of these should probably be supplied by the API
+
 // MAIN CALENDAR VARIABLES
 // 35 is the maximum amount of grid items that fit on one screen
 const maxGridItems = 35;
@@ -61,9 +62,8 @@ function createDayDiv(type, date) {
 
 // Takes a date as an argument, and creates a calendar grid of that date's
 // corresponding month
-// TODO: This function can be cleaned up so that it only needs a date
-function createCalendarGrid() {
-    const firstDayOfMonth = getFirstWeekDayInMonth(currentDate);
+function createCalendarGrid(date) {
+    const firstDayOfMonth = getFirstWeekDayInMonth(date);
 
     // Getting a list of the last days of the previous month, and using it to
     // get the date numbers to use for the "previous" day divs
@@ -95,12 +95,12 @@ function createCalendarGrid() {
     }
 
     // Lastly, add the "today" class to the current day
-    dayGrid.children[currentDate.getDate() + firstDayOfMonth.index - 1].classList.add("today");
+    dayGrid.children[date.getDate() + firstDayOfMonth.index - 1].classList.add("today");
 }
 
-function init() {
+function initCalendar() {
     console.log("Loading Month View");
-    createCalendarGrid();
+    createCalendarGrid(currentDate);
     dayGrid.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {
             case "previous":
@@ -116,4 +116,3 @@ function init() {
         }
     });
 }
-init();
