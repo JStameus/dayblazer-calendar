@@ -15,16 +15,18 @@ const requestOptions = {
     //body: JSON.stringify(userData)
 }
 const BASEURL = "http://localhost:3000/api";
-const QUERY = `u=${userData.user}`;
+const QUERY = `u=jstameus`;
 var eventList = [];
 
 function main() {
     fetch(`${BASEURL}/${QUERY}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-            data.events.forEach(obj => {
-                eventList.push(obj);
-            });
+            if(data.events) {
+                data.events.forEach(obj => {
+                    eventList.push(obj);
+                });
+            }
             initCalendar();
         })
         .catch(err => {
