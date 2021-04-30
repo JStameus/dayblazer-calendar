@@ -154,7 +154,8 @@ header {
 }
 .monthView_day:hover {
   border: 1px solid #9bb888;
-  box-shadow: 2px 2px 7px rgba(155, 184, 136, 0.92);
+  box-shadow: 2px 2px 10px rgba(155, 184, 136, 0.92);
+  transform: scale(1.03);
   transition: 0.07s;
 }
 

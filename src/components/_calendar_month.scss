@@ -72,7 +72,8 @@
     transition: 0.07s;
     &:hover {
         border: 1px solid $accent-color-primary;
-        @include apply-box-shadow($accent-color-primary, $opacity-high, 7px);
+        @include apply-box-shadow($accent-color-primary, $opacity-high, 10px);
+        transform: scale(1.03);
         transition: 0.07s;
     }
 }
