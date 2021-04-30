@@ -1,0 +1,13 @@
+@mixin default-button() {
+    background-color: $bg-color-lighter;
+    color: $accent-color-secondary;
+    font-family: $ui-font;
+    font-size: 1rem;
+    border: 2px solid $accent-color-secondary;
+    border-radius: $border-radius-large;
+    padding: 0.5rem;
+}
+
+button {
+    @include default-button();
+}

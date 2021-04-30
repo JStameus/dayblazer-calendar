@@ -3,11 +3,41 @@ footer {
     bottom: 0;
     width: 100vw; 
     height: 4rem;
-    display: flex;
-    flex-direction: row;
+    //display: flex;
+    //flex-direction: row;
+    //align-items: center;
+    //justify-content: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 6fr 2fr;
     align-items: center;
-    justify-content: space-evenly;
 
     border-top: 2px solid $accent-color-primary; 
     background-color: $bg-color-normal;
+
+    #footer_trackLevel {
+        text-align: center;
+        font-family: $title-font;
+        color: $accent-color-secondary;
+    }
+
+    #footer_trackIcon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: $bg-color-darker;
+        border: 1px solid $accent-color-secondary;
+        border-radius: 50%;
+    }
+
+    #footer_progressBar {
+        height: 2.5rem; 
+        background-color: $bg-color-darker;
+        border: 1px solid $accent-color-secondary;
+        border-radius: $border-radius-large;
+    }
+
+    #footer_xpDisplay {
+        font-family: $ui-font;
+        text-align: center;
+        color: $accent-color-secondary;
+    }
 }

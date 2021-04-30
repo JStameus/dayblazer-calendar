@@ -1,14 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Girassol&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap");
 footer {
   position: fixed;
   bottom: 0;
   width: 100vw;
   height: 4rem;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 2fr 1fr 6fr 2fr;
   align-items: center;
-  justify-content: space-evenly;
-  border-top: 2px solid #A64F3D;
+  border-top: 2px solid #9bb888;
   background-color: #434B52;
+}
+footer #footer_trackLevel {
+  text-align: center;
+  font-family: "Girassol";
+  color: #F8ECBC;
+}
+footer #footer_trackIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #33383D;
+  border: 1px solid #F8ECBC;
+  border-radius: 50%;
+}
+footer #footer_progressBar {
+  height: 2.5rem;
+  background-color: #33383D;
+  border: 1px solid #F8ECBC;
+  border-radius: 10px;
+}
+footer #footer_xpDisplay {
+  font-family: "Oswald";
+  text-align: center;
+  color: #F8ECBC;
 }
 
 header {
@@ -24,7 +48,7 @@ header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr;
-  background-color: #afa692;
+  background-color: #434B52;
   min-height: calc(100vh - 7rem);
 }
 
@@ -32,7 +56,7 @@ header {
   margin: 0 0.3rem;
   border-left: 1px solid darkgray;
   border-right: 1px solid darkgray;
-  background-color: #cec2a9;
+  background-color: #33383D;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -63,11 +87,14 @@ header {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #A64F3D;
+  border-bottom: 2px solid #9bb888;
   background-color: #434B52;
 }
 #monthView_header h2, #monthView_header h3 {
   text-align: center;
+}
+#monthView_header * {
+  margin: 0 1rem;
 }
 
 #monthView_dayLabels {
@@ -76,7 +103,11 @@ header {
   gap: 0.5rem;
 }
 #monthView_dayLabels h3 {
-  border: 1px solid blue;
+  font-family: "Girassol";
+  text-align: center;
+  font-size: 1.5rem;
+  color: #E9EFE1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.92);
 }
 
 #monthView_dayGrid {
@@ -87,13 +118,15 @@ header {
 }
 
 .monthView_day {
-  border: 2px solid #E9EFE1;
+  border: 1px solid #E9EFE1;
   border-radius: 5px;
   background-color: #535B61;
   min-height: 8rem;
+  transition: 0.07s;
 }
 .monthView_day h4 {
-  color: #D5EBDF;
+  font-family: "Oswald";
+  color: #E9EFE1;
   text-align: left;
   position: relative;
   box-sizing: content;
@@ -103,16 +136,44 @@ header {
   margin-left: 0.3rem;
 }
 .monthView_day.previous {
-  background-color: darkgray;
+  background: rgba(51, 56, 61, 0.2);
 }
 .monthView_day.current {
-  background-color: green;
+  background: rgba(81, 100, 105, 0.92);
 }
 .monthView_day.next {
-  background-color: orange;
+  background: rgba(51, 56, 61, 0.2);
 }
 .monthView_day.today {
-  border: 2px dashed red;
+  border: 1px double #F8ECBC;
+  box-shadow: 2px 2px 5px rgba(248, 236, 188, 0.5);
+}
+.monthView_day:hover {
+  border: 1px solid #9bb888;
+  box-shadow: 2px 2px 7px rgba(155, 184, 136, 0.92);
+  transition: 0.07s;
+}
+
+#currentDate_month {
+  font-family: "Girassol";
+  font-size: 1.5rem;
+  color: #E9EFE1;
+}
+
+#currentDate_full {
+  font-family: "Oswald";
+  font-size: 1.3rem;
+  color: #E9EFE1;
+}
+
+button {
+  background-color: #535B61;
+  color: #F8ECBC;
+  font-family: "Oswald";
+  font-size: 1rem;
+  border: 2px solid #F8ECBC;
+  border-radius: 10px;
+  padding: 0.5rem;
 }
 
 * {
@@ -127,6 +188,8 @@ main .monthView_container {
   justify-content: flex-start;
   align-items: center;
   background-image: url("../assets/pictures/bg_valley_01.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
   height: calc(100vh - 4rem);
 }
 
