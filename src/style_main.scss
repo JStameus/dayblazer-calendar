@@ -7,89 +7,13 @@
     box-sizing: border-box;
 }
 
-//$calendar-cell-size: 8.5rem;
-$calendar-cell-width: 10rem;
-$calendar-cell-height: 9rem;
-$calendar-column-spacing: 0.5rem;
-$calendar-row-spacing: 0.5rem;
-
 main {
     .monthView_container {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        #monthView_header {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            margin: 0.4rem 0;
-            h2, h3 {
-                text-align: center;
-            }
-            border-bottom: 2px solid black;
-        }
-        #monthView_dayLabels {
-            display: grid;
-            grid-template-columns: repeat(7, $calendar-cell-width);
-            gap: $calendar-row-spacing;
-            h3 {
-                border: 1px solid blue;
-            }
-        }
-        #monthView_dayGrid {
-            display: grid;
-            grid-template-columns: repeat(7, $calendar-cell-width);
-            grid-template-rows: repeat(5, $calendar-cell-height);
-            gap: $calendar-row-spacing;
-        }
+        background-image: url("../assets/pictures/bg_valley_01.jpeg");
+        height: calc(100vh - 4rem);
     }
-}
-
-.monthView_day {
-    border: 2px solid purple;
-    border-radius: 4px;
-}
-
-.dayColumn_container {
-    border: 2px dashed red;
-    width: 12rem;
-}
-
-.previous {
-    background-color: darkgray;
-}
-
-.current {
-    background-color: green;
-}
-
-.next {
-    background-color: orange;
-}
-
-.today {
-    border: 2px dashed red;
-}
-
-// TEMPORARY - MOVE THESE LATER
-header {
-    width: 100vw; 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 2px solid red;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-
-    width: 100vw; 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
 }

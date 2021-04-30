@@ -1,25 +1,59 @@
-// -- MONTH VIEW --
-.mainView_month {
-    margin: 0.5rem 1.25rem;
+#monthView_header {
+    width: 100vw;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    h2, h3 {
+        text-align: center;
+    }
+    border-bottom: 2px solid $accent-color-primary;
+    background-color: $bg-color-normal;
+}
+#monthView_dayLabels {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-gap: 0.4rem;
+    grid-template-columns: repeat(7, $calendar-cell-width);
+    gap: $calendar-row-spacing;
+    h3 {
+        border: 1px solid blue;
+    }
 }
 
-.day_monthView {
+#monthView_dayGrid {
+    display: grid;
+    grid-template-columns: repeat(7, $calendar-cell-width);
+    grid-template-rows: repeat(5, $calendar-cell-height);
+    gap: $calendar-row-spacing;
+}
+
+.monthView_day {
     border: 2px solid $fg-color-normal;
     border-radius: $border-radius-small;
     background-color: $bg-color-lighter;
     min-height: 8rem;
-    p {
-        border: 1px dotted red;
-        color: $fg-color-normal;
-        text-align: center;
+    // This is the "number label"
+    h4 {
+        color: $fg-color-tinted;
+        text-align: left;
         position: relative;
         box-sizing: content;
         width: 15%;
         float: left;
         margin-top: 0.3rem;
+        margin-left: 0.3rem;
+    }
+    &.previous {
+        background-color: darkgray;
+    }
+    &.current {
+        background-color: green;
+    }
+    &.next {
+        background-color: orange;
+    }
+    &.today {
+        border: 2px dashed red;
     }
 }
