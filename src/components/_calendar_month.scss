@@ -33,6 +33,10 @@
     grid-template-columns: repeat(7, $calendar-cell-width);
     grid-template-rows: repeat(5, $calendar-cell-height);
     gap: $calendar-row-spacing;
+    background-color: rgba(black, 0.8);
+    @include apply-box-shadow(black, 0.8, 4px);
+    border-radius: $border-radius-large;
+    padding: 0.7rem;
 }
 
 .monthView_day {
@@ -56,14 +60,14 @@
         background: rgba($bg-color-darker, $opacity-low);
     }
     &.current {
-        background: rgba($bg-color-tinted, $opacity-high);
+        background: rgba($bg-color-lighter, $opacity-medium);
     }
     &.next {
         background: rgba($bg-color-darker, $opacity-low);
     }
     &.today {
-        border: 1px double $accent-color-secondary;
-        @include apply-box-shadow($accent-color-secondary, $opacity-medium, 5px);
+        border: 1px dashed $accent-color-secondary;
+        @include apply-box-shadow($accent-color-secondary, $opacity-medium, 10px);
     }
     transition: 0.07s;
     &:hover {
