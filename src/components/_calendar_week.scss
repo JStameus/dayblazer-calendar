@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);  
     grid-template-rows: 1fr;
-    background-color: $paper-color-dark;
+    background-color: $bg-color-normal;
     min-height: calc(100vh - 7rem);
 }
 
@@ -11,7 +11,7 @@
     margin: 0 0.3rem;
     border-left: 1px solid darkgray;
     border-right: 1px solid darkgray;
-    background-color: $paper-color-light;
+    background-color: $bg-color-darker;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

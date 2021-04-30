@@ -9,6 +9,9 @@
     h2, h3 {
         text-align: center;
     }
+    * {
+        margin: 0 1rem;
+    }
     border-bottom: 2px solid $accent-color-primary;
     background-color: $bg-color-normal;
 }
@@ -17,7 +20,11 @@
     grid-template-columns: repeat(7, $calendar-cell-width);
     gap: $calendar-row-spacing;
     h3 {
-        border: 1px solid blue;
+        font-family: $title-font;
+        text-align: center;
+        font-size: 1.5rem;
+        color: $fg-color-normal;
+        @include apply-text-shadow(black, $opacity-high, 4px);
     }
 }
 
@@ -26,16 +33,21 @@
     grid-template-columns: repeat(7, $calendar-cell-width);
     grid-template-rows: repeat(5, $calendar-cell-height);
     gap: $calendar-row-spacing;
+    background-color: rgba(black, 0.8);
+    @include apply-box-shadow(black, 0.8, 4px);
+    border-radius: $border-radius-large;
+    padding: 0.7rem;
 }
 
 .monthView_day {
-    border: 2px solid $fg-color-normal;
+    border: 1px solid $fg-color-normal;
     border-radius: $border-radius-small;
     background-color: $bg-color-lighter;
     min-height: 8rem;
     // This is the "number label"
     h4 {
-        color: $fg-color-tinted;
+        font-family: $ui-font;
+        color: $fg-color-normal;
         text-align: left;
         position: relative;
         box-sizing: content;
@@ -45,15 +57,34 @@
         margin-left: 0.3rem;
     }
     &.previous {
-        background-color: darkgray;
+        background: rgba($bg-color-darker, $opacity-low);
     }
     &.current {
-        background-color: green;
+        background: rgba($bg-color-lighter, $opacity-medium);
     }
     &.next {
-        background-color: orange;
+        background: rgba($bg-color-darker, $opacity-low);
     }
     &.today {
-        border: 2px dashed red;
+        border: 1px dashed $accent-color-secondary;
+        @include apply-box-shadow($accent-color-secondary, $opacity-medium, 10px);
     }
+    transition: 0.07s;
+    &:hover {
+        border: 1px solid $accent-color-primary;
+        @include apply-box-shadow($accent-color-primary, $opacity-high, 7px);
+        transition: 0.07s;
+    }
+}
+
+#currentDate_month {
+    font-family: $title-font;
+    font-size: 1.5rem;
+    color: $fg-color-normal;
+}
+
+#currentDate_full {
+    font-family: $ui-font;
+    font-size: 1.3rem;
+    color: $fg-color-normal;
 }

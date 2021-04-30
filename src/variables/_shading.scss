@@ -1,0 +1,12 @@
+$opacity-low: 0.2;
+$opacity-medium: 0.65;
+$opacity-high: 0.92;
+$opacity-full: 1;
+
+@mixin apply-text-shadow($color, $opacity, $thickness) {
+    text-shadow: 2px 2px $thickness rgba($color, $opacity);
+}
+
+@mixin apply-box-shadow($color, $opacity, $thickness) {
+    box-shadow: 2px 2px $thickness rgba($color, $opacity);
+}
