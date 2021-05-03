@@ -1,12 +1,14 @@
 // TODO: Some of these should probably be supplied by the API
 
 // MAIN CALENDAR VARIABLES
-// 35 is the maximum amount of grid items that fit on one screen
-const maxGridItems = 35;
+var maxGridItems = 0;
 const dayGrid = document.querySelector("#monthView_dayGrid");
 
 const currentDate = new Date();
+//currentDate.setMonth(currentDate.getMonth() - 1);
 const daysInCurrentMonth = getDaysInMonth(currentDate);
+const firstDayOfCurrentMonth = getFirstWeekDayInMonth(currentDate);
+console.log(firstDayOfCurrentMonth);
 
 const previousMonth = new Date();
 previousMonth.setMonth(currentDate.getMonth() - 1);
@@ -63,7 +65,7 @@ function createDayDiv(type, date) {
 // Takes a date as an argument, and creates a calendar grid of that date's
 // corresponding month
 function createCalendarGrid(date) {
-    const firstDayOfMonth = getFirstWeekDayInMonth(date);
+    const firstDay = getFirstWeekDayInMonth(date);
 
     // Getting a list of the last days of the previous month, and using it to
     // get the date numbers to use for the "previous" day divs
@@ -76,10 +78,10 @@ function createCalendarGrid(date) {
     for(let c = 1; c <= daysInPreviousMonth; c++) {
         remainder.push(c);
     }
-    remainder = remainder.slice(Math.max(remainder.length - firstDayOfMonth.index, 0));
+    remainder = remainder.slice(Math.max(remainder.length - firstDay.index, 0));
     
     // Add the previous days up to the first weekday of the date
-    for(let i = 0; i < firstDayOfMonth.index; i++) {
+    for(let i = 0; i < firstDay.index; i++) {
         dayGrid.appendChild(createDayDiv("previous", remainder[i]));
     }     
 
@@ -95,11 +97,17 @@ function createCalendarGrid(date) {
     }
 
     // Lastly, add the "today" class to the current day
-    dayGrid.children[date.getDate() + firstDayOfMonth.index - 1].classList.add("today");
+    dayGrid.children[date.getDate() + firstDay.index - 1].classList.add("today");
 }
 
 function initCalendar() {
     console.log("Loading Month View");
+    // Index is 5(Saturday) or more, 35 grid items is not enough. 
+    if (firstDayOfCurrentMonth.index >= 5) {
+        maxGridItems = 42;
+    } else {
+        maxGridItems = 35;
+    }
     createCalendarGrid(currentDate);
     dayGrid.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {

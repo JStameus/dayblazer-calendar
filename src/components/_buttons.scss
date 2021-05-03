@@ -6,6 +6,11 @@
     border: 2px solid $accent-color-secondary;
     border-radius: $border-radius-large;
     padding: 0.5rem;
+    &:hover {
+        background-color: $bg-color-tinted;
+        color: $fg-color-normal;
+        border-color: $fg-color-normal;
+    }
 }
 
 button {
