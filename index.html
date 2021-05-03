@@ -11,6 +11,32 @@
 
 	<body>
         <main>
+            <div id="menu_right">
+                <button id="menu_right_toggleButton">-</button>
+                <h2>Today</h2>
+                <div id="menu_right_content">
+                    <hr>
+                    <h2>May</h2>
+                    <h3>Monday - May 3 - 2021</h3>
+                    <h1>10:35</h1>
+                    <hr>
+                    <h2>Coming Up</h2>
+                    <div id="sideMenu_nextTask">
+                        <div id="nextTask_info">
+                            <h3>14:00</h3>
+                            <h3>Do the thing</h3> 
+                        </div>
+                       <button id="nextTask_goto">?</button>
+                    </div>
+                    <h2>Active Quest</h2>
+                    <div id="sideMenu_activeQuest">
+                        <h3>Find the meaning of life</h3>
+                        <button>?</button>
+                    </div>
+                    <hr>
+                    <button id="sideMenu_showAgenda">Today's Agenda</button>
+                </div>
+            </div>
             <div class="monthView_container">
                 <div id="monthView_header">
                     <button>PREV</button>
@@ -39,6 +65,7 @@
             <div id="footer_progressBar"></div>
             <h3 id="footer_xpDisplay">300/1000</h3>
         </footer>
+        <script src="uimanager.js"></script>
         <script src="calendarmanager.js"></script>
 		<script src="main.js"></script>
 	</body>

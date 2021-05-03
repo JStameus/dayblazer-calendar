@@ -1,0 +1,48 @@
+#menu_right {
+    position: fixed;
+    right: 0;
+    margin: 1rem;
+    padding: 0.3rem;
+    width: 20rem;
+    background-color: $bg-color-normal;
+    border-radius: $border-radius-large;
+    @include apply-box-shadow($bg-color-black, $opacity-high, 6px);
+    h1, h2, h3 {
+        color: $fg-color-normal;
+        font-family: $title-font;
+        text-align: center;
+    }
+    hr {
+        color: $accent-color-primary;
+    }
+}
+
+#menu_right_toggleButton {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.2rem;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    padding: 0;
+}
+
+#sideMenu_nextTask, #sideMenu_activeQuest {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    background-color: $bg-color-darker;
+    padding: 0.3rem;
+    border-radius: $border-radius-small;
+    #nextTask_info {
+        overflow-x: hidden;
+    }
+    h3 {
+        text-align: left;
+        font-family: $ui-font;
+    }
+}
+
+#sideMenu_showAgenda {
+    width: 100%;
+    margin-top: 0.4rem;
+}

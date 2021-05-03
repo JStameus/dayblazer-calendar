@@ -18,9 +18,6 @@ const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
 var eventList = [];
 
-const headerEl = document.querySelector("#monthView_header");
-headerEl.style.display = "none";
-
 function main() {
     fetch(`${BASEURL}/${QUERY}`, requestOptions)
         .then(response => response.json())
