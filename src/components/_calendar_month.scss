@@ -1,7 +1,7 @@
 #monthView_header {
     width: 100vw;
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -16,9 +16,11 @@
     background-color: $bg-color-normal;
 }
 #monthView_dayLabels {
+    margin-top: auto;
+    margin-bottom: 0.2rem;
     display: grid;
     grid-template-columns: repeat(7, $calendar-cell-width);
-    gap: $calendar-row-spacing;
+    gap: $calendar-column-spacing;
     h3 {
         font-family: $title-font;
         text-align: center;
@@ -32,11 +34,13 @@
     display: grid;
     grid-template-columns: repeat(7, $calendar-cell-width);
     grid-template-rows: repeat(5, $calendar-cell-height);
-    gap: $calendar-row-spacing;
-    background-color: rgba(black, 0.8);
+    gap: $calendar-row-spacing $calendar-column-spacing;
+    background-color: rgba($bg-color-black, 0.8);
     @include apply-box-shadow(black, 0.8, 4px);
     border-radius: $border-radius-large;
     padding: 0.7rem;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .monthView_day {
