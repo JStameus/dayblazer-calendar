@@ -16,6 +16,9 @@ const requestOptions = {
 }
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
+
+var currentXP = 300;
+var requiredXP = 1000;
 var eventList = [];
 
 function main() {

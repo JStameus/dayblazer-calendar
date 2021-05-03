@@ -28,6 +28,16 @@ footer #footer_progressBar {
   background-color: #33383D;
   border: 1px solid #F8ECBC;
   border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.7rem;
+}
+footer #progressBar_fill {
+  background-color: #F8ECBC;
+  height: 70%;
+  width: 0%;
 }
 footer #footer_xpDisplay {
   font-family: "Girassol";

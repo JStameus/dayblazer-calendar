@@ -1,6 +1,4 @@
-const headerEl = document.querySelector("#monthView_header");
-headerEl.style.display = "none";
-
+// SIDE MENU: RIGHT
 const rightMenuContent = document.querySelector("#menu_right_content");
 const rightToggleButton = document.querySelector("#menu_right_toggleButton");
 rightToggleButton.addEventListener("click", () => {
@@ -12,3 +10,10 @@ rightToggleButton.addEventListener("click", () => {
         rightToggleButton.textContent = "+";
     }
 });
+
+// FOOTER AND PROGRESS BAR
+const progressBarFill = document.querySelector("#progressBar_fill");
+function updateProgressBar() {
+    const newPercentage = (currentXP/requiredXP) * 100;
+    progressBarFill.style.width = `${newPercentage}%`;
+}

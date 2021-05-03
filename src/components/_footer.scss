@@ -33,6 +33,17 @@ footer {
         background-color: $bg-color-darker;
         border: 1px solid $accent-color-secondary;
         border-radius: $border-radius-large;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.7rem;
+    }
+
+    #progressBar_fill {
+        background-color: $accent-color-secondary;
+        height: 70%;
+        width: 0%;
     }
 
     #footer_xpDisplay {
