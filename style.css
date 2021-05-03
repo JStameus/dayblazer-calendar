@@ -195,6 +195,7 @@ header {
 }
 #menu_right hr {
   color: #9bb888;
+  margin: 0.3rem 0;
 }
 
 #menu_right_toggleButton {
