@@ -25,7 +25,7 @@ function initApp() {
         .then(data => {
             if(data.events) {
                 data.events.forEach(obj => {
-                    eventList.push(new CalendarEvent(obj));
+                    globalEventList.push(new CalendarEvent(obj));
                 });
             }
             initCalendar();

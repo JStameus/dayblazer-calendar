@@ -5,7 +5,6 @@
     etc, as well as dynamically creating the elements representing the days.
 */
 
-// TODO: Some of these should probably be supplied by the API
 // MAIN CALENDAR VARIABLES
 const currentDate = new Date();
 const daysInCurrentMonth = getDaysInMonth(currentDate);
@@ -15,6 +14,8 @@ const previousMonth = new Date();
 previousMonth.setMonth(currentDate.getMonth() - 1);
 const nextMonth = new Date();
 nextMonth.setMonth(currentDate.getMonth() + 1);
+
+var globalCalendarDayList = [];
 
 function getDaysInMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -60,6 +61,16 @@ function getDateString(day, month, year) {
     }
 
     return `${day}-${month}-${year}`;
+}
+
+function createCalendarDayData(date) {
+    globalCalendarDayList = [];
+    const numberOfDays = getDaysInMonth(date);
+    for(let i = 0; i < numberOfDays; i++) {
+        const dateString = getDateString(i + 1, date.getMonth() + 1, date.getFullYear());
+        globalCalendarDayList.push(new CalendarDay(dateString)); 
+    }
+
 }
 
 function createDayDiv(type, date) {
@@ -123,7 +134,6 @@ function createCalendarGrid(date) {
 }
 
 function initCalendar() {
-    console.log("Loading Month View");
     // If index is 5(Saturday) or more, 35 grid items is not enough. 
     if (firstDayOfCurrentMonth.index >= 5) {
         maxGridItems = 42;
@@ -131,6 +141,7 @@ function initCalendar() {
         maxGridItems = 35;
     }
     createCalendarGrid(currentDate);
+    createCalendarDayData(currentDate);
     dayGrid.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {
             case "previous":
@@ -144,7 +155,6 @@ function initCalendar() {
             default:
                 break;
         }
-        console.log(e.target);
     });
     initEvents();
 }

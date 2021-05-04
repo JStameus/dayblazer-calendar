@@ -1,11 +1,26 @@
 class CalendarDay {
-    constructor(date, eventList) {
-        this.date = date;
-        this.eventList = eventList;
+    constructor(dateString) {
+        this.date = dateString;
+        this.eventList = this.refreshEventList();
     }
     updateMenuView() {
         // Update the relevant elements of the dayView to show the info
         // contained in this CalendarDay
+    }
+    // Goes through the global list of events and rebuilds this CalendarDay's
+    // event list with any events that match its date.
+    refreshEventList() {
+        const matchingEvents = globalEventList.filter((obj) => {
+            // TODO: Is this a proper usage of filter? It works but it feels
+            // dirty somehow.
+            if(obj.date.toString().trim() === this.date.toString().trim()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+        return matchingEvents;
     }
 }
 

@@ -1,9 +1,9 @@
-var eventList = [];
+var globalEventList = [];
 function initEvents() {
     const nodeList = dayGrid.children;
     for(let i = 0; i < nodeList.length; i++) {
         const currentDayDiv = nodeList[i];
-        eventList.forEach(obj => {
+        globalEventList.forEach(obj => {
            if(obj.date === currentDayDiv.dataset.date) {
                 currentDayDiv.appendChild(createEventDiv(obj));
             }
