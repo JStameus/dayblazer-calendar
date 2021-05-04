@@ -71,6 +71,10 @@
         transform: scale(1.03);
         transition: 0.07s;
     }
+    &.clicked {
+        transition: 0.02s;
+        background-color: rgba(indianred, $opacity-high);
+    }
 }
 
 .day_date_number {

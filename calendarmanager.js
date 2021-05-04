@@ -175,7 +175,6 @@ function initCalendar() {
             default:
                 break;
         }
-        console.log(e.target);
     });
     initEvents();
 }

@@ -1,6 +1,7 @@
 #day_view_full {
     @include center-container(40rem, 54rem, -2.5rem);
     background-color: $bg-color-normal;
+    z-index: 3;
     border: 1px solid $fg-color-normal;
     border-radius: $border-radius-large;
     padding: 0.6rem;

@@ -3,6 +3,20 @@ hr {
     margin: 0.3rem 0;
 }
 
+@mixin blackout-toggle() {
+    &.enabled {
+        background-color: rgba($bg-color-black, $opacity-medium);
+        box-shadow: 0 0 48px 24px black inset;
+        transition: 0.3s;
+    }
+    &.disabled {
+        background-color: rgba($bg-color-darker, 0);    
+        box-shadow: 0 0 48px 24px rgba(black, 0) inset;
+        transition: 0.2s;
+    }
+}
+
+
 @mixin info-box($padding) {
     background-color: $bg-color-darker;
     border-radius: $border-radius-small;

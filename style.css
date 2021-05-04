@@ -8,6 +8,7 @@ hr {
 
 footer {
   position: fixed;
+  z-index: 3;
   bottom: 0;
   width: 100vw;
   height: 4rem;
@@ -170,6 +171,10 @@ header {
   transform: scale(1.03);
   transition: 0.07s;
 }
+.monthView_day.clicked {
+  transition: 0.02s;
+  background-color: rgba(205, 92, 92, 0.92);
+}
 
 .day_date_number {
   font-family: "Oswald";
@@ -192,7 +197,7 @@ header {
 
 #menu_right {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   right: 0;
   margin: 1rem;
   padding: 0.3rem;
@@ -301,6 +306,7 @@ button:hover {
   height: 54rem;
   transform: translateY(-2.5rem);
   background-color: #434B52;
+  z-index: 3;
   border: 1px solid #E9EFE1;
   border-radius: 10px;
   padding: 0.6rem;
@@ -344,6 +350,24 @@ main .monthView_container {
   background-size: cover;
   background-repeat: no-repeat;
   height: calc(100vh - 4rem);
+}
+main #screen_blocker {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: calc(100vh - 4rem);
+}
+main #screen_blocker.enabled {
+  background-color: rgba(31, 33, 33, 0.65);
+  box-shadow: 0 0 48px 24px black inset;
+  transition: 0.3s;
+}
+main #screen_blocker.disabled {
+  background-color: rgba(51, 56, 61, 0);
+  box-shadow: 0 0 48px 24px rgba(0, 0, 0, 0) inset;
+  transition: 0.2s;
 }
 
 /*# sourceMappingURL=style.css.map */
