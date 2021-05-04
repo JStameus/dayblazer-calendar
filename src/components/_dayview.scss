@@ -1,0 +1,28 @@
+#day_view_full {
+    @include center-container(40rem, 54rem, -2.5rem);
+    background-color: $bg-color-normal;
+    border: 1px solid $fg-color-normal;
+    border-radius: $border-radius-large;
+    padding: 0.6rem;
+    button {
+        position: fixed;
+        right: 0;
+        top: 0;
+        margin: 0.3rem;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+    h1 {
+        color: $fg-color-normal;
+        font-size: 2rem;
+        font-family: $title-font;
+        text-align: center;
+    }
+    h3 {
+        color: $fg-color-normal;
+        font-family: $ui-font;
+    }
+    #day_view_full_summary {
+        @include info-box(0.5rem);
+    }
+}

@@ -13,7 +13,10 @@ rightToggleButton.addEventListener("click", () => {
 
 // FOOTER AND PROGRESS BAR
 const progressBarFill = document.querySelector("#progressBar_fill");
+const xpDisplay = document.querySelector("#footer_xpDisplay");
 function updateProgressBar() {
     const newPercentage = (currentXP/requiredXP) * 100;
     progressBarFill.style.width = `${newPercentage}%`;
+
+    xpDisplay.textContent = `${currentXP}/${requiredXP}`;
 }

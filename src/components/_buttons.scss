@@ -16,3 +16,17 @@
 button {
     @include default-button();
 }
+
+.day_button_expand {
+    background-color: $bg-color-normal;
+    border-color: $bg-color-lighter;
+    border-width: 0 1px 1px 1px;
+    border-radius: 0 0 $border-radius-small $border-radius-small;
+    position: absolute;
+    height: 20%;
+    width: 100%;
+    font-size: 0.6rem;
+    padding: 0.1rem 1rem;
+    margin: 0;
+    float: inline-start;
+}

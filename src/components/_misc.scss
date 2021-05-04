@@ -1,0 +1,10 @@
+hr {
+    color: $accent-color-primary;
+    margin: 0.3rem 0;
+}
+
+@mixin info-box($padding) {
+    background-color: $bg-color-darker;
+    border-radius: $border-radius-small;
+    padding: $padding;
+}

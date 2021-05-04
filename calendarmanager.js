@@ -61,20 +61,24 @@ function getDateString(day, month, year) {
 }
 
 function createDayDiv(type, date) {
-    const newDiv = document.createElement("div");
-    newDiv.className= "monthView_day";
-    newDiv.classList.add(type);
-
     const dateLabel = document.createElement("h4");
     dateLabel.classList.add("day_date_number");
     dateLabel.textContent = date;
 
+    //const expandButton = document.createElement("button");
+    //expandButton.textContent = "------";
+    //expandButton.classList.add("day_button_expand");
+
+    const newDiv = document.createElement("div");
+    newDiv.className= "monthView_day";
+    newDiv.classList.add(type);
     newDiv.appendChild(dateLabel);
+    //newDiv.appendChild(expandButton);
+
     return newDiv;
 }
 
 function createEventDiv(event) {
-    console.log(event.type);
     const nameLabel = document.createElement("p");
     nameLabel.textContent = event.name;
     nameLabel.classList.add("event_preview_name");
@@ -171,14 +175,12 @@ function initCalendar() {
             default:
                 break;
         }
+        console.log(e.target);
     });
     initEvents();
 }
 
 function initEvents() {
-    // for each event =>
-    // loop through all day divs and check their data-date 
-    // if there is a match, create an event div and append it to the day
     const nodeList = dayGrid.children;
     for(let i = 0; i < nodeList.length; i++) {
         const currentDayDiv = nodeList[i];

@@ -16,8 +16,8 @@ const requestOptions = {
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
 
-var currentXP = 300;
-var requiredXP = 1000;
+var currentXP = 200;
+var requiredXP = 4000;
 var eventList = [];
 
 function main() {
@@ -34,6 +34,7 @@ function main() {
         .catch(err => {
             console.log(`ERROR: ${err}`);
         });
+    updateProgressBar();
 }
 
 // APP ENTRY POINT

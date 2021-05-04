@@ -6,3 +6,16 @@ $calendar-cell-height: 7rem;
 $calendar-cell-gap: 1.1rem;
 $calendar-column-spacing: 0.5rem;
 $calendar-row-spacing: 1.5rem;
+
+@mixin center-container($width, $height, $yOffset) {
+    margin: auto;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: $width;
+    height: $height;
+    transform: translateY($yOffset);
+}
+
