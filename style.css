@@ -108,8 +108,6 @@ header {
 }
 
 #monthView_dayLabels {
-  margin-top: auto;
-  margin-bottom: 0.2rem;
   display: grid;
   grid-template-columns: repeat(7, 10rem);
   gap: 0.5rem;
@@ -141,6 +139,7 @@ header {
   border: 1px solid #E9EFE1;
   border-radius: 5px;
   background-color: #535B61;
+  padding: 0.25rem;
   overflow-y: hidden;
   min-height: 8rem;
   transition: 0.07s;
@@ -257,10 +256,8 @@ button:hover {
   color: #E9EFE1;
   text-shadow: 0.1rem 0.1rem 0px rgba(31, 33, 33, 0.65);
   font-family: "Oswald";
-  margin-top: 0.1rem;
-  margin-right: 0.2rem;
-  margin-left: 0.2rem;
   padding: 0.2rem;
+  margin-bottom: 0.2rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

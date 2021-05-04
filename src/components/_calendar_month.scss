@@ -16,8 +16,6 @@
     background-color: $bg-color-normal;
 }
 #monthView_dayLabels {
-    margin-top: auto;
-    margin-bottom: 0.2rem;
     display: grid;
     grid-template-columns: repeat(7, $calendar-cell-width);
     gap: $calendar-column-spacing;
@@ -49,6 +47,7 @@
     border: 1px solid $fg-color-normal;
     border-radius: $border-radius-small;
     background-color: $bg-color-lighter;
+    padding: 0.25rem;
     overflow-y: hidden;
     min-height: 8rem;
     &.previous {
