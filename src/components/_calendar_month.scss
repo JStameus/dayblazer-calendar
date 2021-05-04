@@ -50,18 +50,6 @@
     border-radius: $border-radius-small;
     background-color: $bg-color-lighter;
     min-height: 8rem;
-    // This is the "number label"
-    h4 {
-        font-family: $ui-font;
-        color: $fg-color-normal;
-        text-align: left;
-        position: relative;
-        box-sizing: content;
-        width: 15%;
-        float: left;
-        margin-top: 0.3rem;
-        margin-left: 0.3rem;
-    }
     &.previous {
         background: rgba($bg-color-darker, $opacity-low);
     }
@@ -82,6 +70,18 @@
         transform: scale(1.03);
         transition: 0.07s;
     }
+}
+
+.day_date_number {
+    font-family: $ui-font;
+    color: $fg-color-normal;
+    text-align: left;
+    position: relative;
+    box-sizing: content;
+    width: 15%;
+    float: left;
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
 }
 
 #currentDate_month {

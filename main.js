@@ -12,7 +12,6 @@ const requestOptions = {
         "User-Name": `${userData.user}`,
         "Board-Token": `${userData.token}`
     },
-    //body: JSON.stringify(userData)
 }
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;

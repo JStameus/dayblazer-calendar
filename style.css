@@ -144,17 +144,6 @@ header {
   min-height: 8rem;
   transition: 0.07s;
 }
-.monthView_day h4 {
-  font-family: "Oswald";
-  color: #E9EFE1;
-  text-align: left;
-  position: relative;
-  box-sizing: content;
-  width: 15%;
-  float: left;
-  margin-top: 0.3rem;
-  margin-left: 0.3rem;
-}
 .monthView_day.previous {
   background: rgba(51, 56, 61, 0.2);
 }
@@ -173,6 +162,18 @@ header {
   box-shadow: 2px 2px 10px rgba(155, 184, 136, 0.92);
   transform: scale(1.03);
   transition: 0.07s;
+}
+
+.day_date_number {
+  font-family: "Oswald";
+  color: #E9EFE1;
+  text-align: left;
+  position: relative;
+  box-sizing: content;
+  width: 15%;
+  float: left;
+  margin-top: 0.3rem;
+  margin-left: 0.3rem;
 }
 
 #currentDate_month {
@@ -251,6 +252,13 @@ button:hover {
   background-color: #586861;
   color: #E9EFE1;
   border-color: #E9EFE1;
+}
+
+.event_preview_name {
+  border-radius: 5px;
+  background-color: #9bb888;
+  color: #434B52;
+  font-family: "Oswald";
 }
 
 * {

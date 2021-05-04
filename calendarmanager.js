@@ -8,7 +8,6 @@ const currentDate = new Date();
 //currentDate.setMonth(currentDate.getMonth() - 1);
 const daysInCurrentMonth = getDaysInMonth(currentDate);
 const firstDayOfCurrentMonth = getFirstWeekDayInMonth(currentDate);
-console.log(firstDayOfCurrentMonth);
 
 const previousMonth = new Date();
 previousMonth.setMonth(currentDate.getMonth() - 1);
@@ -49,16 +48,45 @@ function getFirstWeekDayInMonth(date) {
     }
 }
 
+function getDateString(day, month, year) {
+    // Prepend a 0 to the number is it's a single digit
+    if (day.toString().length === 1) {
+        day = "0" + day;
+    }
+    if(month.toString().length === 1) {
+        month = "0" + month ;
+    }
+
+    return `${day}-${month}-${year}`;
+}
+
 function createDayDiv(type, date) {
     const newDiv = document.createElement("div");
     newDiv.className= "monthView_day";
     newDiv.classList.add(type);
 
     const dateLabel = document.createElement("h4");
+    dateLabel.classList.add("day_date_number");
     dateLabel.textContent = date;
-    // TODO: dateLabel should probably have a class of its own
 
     newDiv.appendChild(dateLabel);
+    return newDiv;
+}
+
+function createEventDiv(event) {
+    //const timeLabel = document.createElement("h5");
+    //timeLabel.textContent = event.startTime;
+    //timeLabel.classList.add("event_preview_time");
+
+    const nameLabel = document.createElement("p");
+    nameLabel.textContent = event.name;
+    nameLabel.classList.add("event_preview_name");
+
+    const newDiv = document.createElement("div");
+    newDiv.id = `event_${event.id}`;
+    //newDiv.appendChild(timeLabel);
+    newDiv.appendChild(nameLabel);
+
     return newDiv;
 }
 
@@ -71,9 +99,9 @@ function createCalendarGrid(date) {
     // get the date numbers to use for the "previous" day divs
     const daysInPreviousMonth = getDaysInMonth(previousMonth);
 
-    // TODO: Is there a cleaner way to do this?
     // Create an array of all the dates of the previous month, and slice it down
     // to the appropriate amount needed to fill in the calendar
+    // TODO: Is there a cleaner way to do this?
     let remainder = [];
     for(let c = 1; c <= daysInPreviousMonth; c++) {
         remainder.push(c);
@@ -82,18 +110,27 @@ function createCalendarGrid(date) {
     
     // Add the previous days up to the first weekday of the date
     for(let i = 0; i < firstDay.index; i++) {
-        dayGrid.appendChild(createDayDiv("previous", remainder[i]));
+        const currentDateString = getDateString(remainder[i], previousMonth.getMonth() + 1, previousMonth.getFullYear());
+        const newDiv = createDayDiv("previous", remainder[i]);
+        newDiv.dataset.date = currentDateString;
+        dayGrid.appendChild(newDiv);
     }     
 
     // Add all the days of the current month
     for(let i = 0; i < daysInCurrentMonth; i++) {
-        dayGrid.appendChild(createDayDiv("current", i+1));
+        const currentDateString = getDateString(i + 1, currentDate.getMonth() + 1, currentDate.getFullYear());
+        const newDiv = createDayDiv("current", i + 1);
+        newDiv.dataset.date = currentDateString;
+        dayGrid.appendChild(newDiv);
     }
 
     // Fill up the rest of the grid with next month's days
     const daysRemaining = maxGridItems - dayGrid.children.length;
     for(let i = 0; i < daysRemaining; i++) {
-        dayGrid.appendChild(createDayDiv("next", i+1));
+        const currentDateString = getDateString(i + 1, nextMonth.getMonth() + 1, nextMonth.getFullYear());
+        const newDiv = createDayDiv("next", i + 1);
+        newDiv.dataset.date = currentDateString;
+        dayGrid.appendChild(newDiv);
     }
 
     // Lastly, add the "today" class to the current day
@@ -102,7 +139,7 @@ function createCalendarGrid(date) {
 
 function initCalendar() {
     console.log("Loading Month View");
-    // Index is 5(Saturday) or more, 35 grid items is not enough. 
+    // If index is 5(Saturday) or more, 35 grid items is not enough. 
     if (firstDayOfCurrentMonth.index >= 5) {
         maxGridItems = 42;
     } else {
@@ -123,4 +160,20 @@ function initCalendar() {
                 break;
         }
     });
+    initEvents();
+}
+
+function initEvents() {
+    // for each event =>
+    // loop through all day divs and check their data-date 
+    // if there is a match, create an event div and append it to the day
+    const nodeList = dayGrid.children;
+    for(let i = 0; i < nodeList.length; i++) {
+        const currentDayDiv = nodeList[i];
+        eventList.forEach(obj => {
+            if(obj.date === currentDayDiv.dataset.date) {
+                currentDayDiv.appendChild(createEventDiv(obj));
+            }
+        });
+    }
 }
