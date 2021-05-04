@@ -18,7 +18,6 @@ const QUERY = `u=jstameus`;
 
 var currentXP = 200;
 var requiredXP = 4000;
-var eventList = [];
 
 function initApp() {
     fetch(`${BASEURL}/${QUERY}`, requestOptions)
@@ -26,7 +25,7 @@ function initApp() {
         .then(data => {
             if(data.events) {
                 data.events.forEach(obj => {
-                    eventList.push(obj);
+                    eventList.push(new CalendarEvent(obj));
                 });
             }
             initCalendar();

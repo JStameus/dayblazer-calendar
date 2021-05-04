@@ -1,3 +1,4 @@
+var eventList = [];
 function initEvents() {
     const nodeList = dayGrid.children;
     for(let i = 0; i < nodeList.length; i++) {
@@ -38,4 +39,3 @@ function createEventDiv(event) {
 
     return newDiv;
 }
-
