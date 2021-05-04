@@ -181,6 +181,7 @@ header {
   color: #E9EFE1;
   text-align: left;
   margin-bottom: 0.2rem;
+  pointer-events: none;
 }
 
 #currentDate_month {
@@ -271,6 +272,10 @@ button:hover {
   float: inline-start;
 }
 
+.event_preview {
+  pointer-events: none;
+}
+
 .event_preview_name {
   border-radius: 5px;
   color: #E9EFE1;
@@ -281,6 +286,7 @@ button:hover {
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  pointer-events: none;
 }
 .event_preview_name.event_type_event {
   background-color: #4da079;

@@ -1,11 +1,13 @@
+/* 
+                             == CALENDAR MANAGER ==
+    The calendar manager is responsible for handling all information related to
+    dates, such as the current date, which weekday is the first day of the month
+    etc, as well as dynamically creating the elements representing the days.
+*/
+
 // TODO: Some of these should probably be supplied by the API
-
 // MAIN CALENDAR VARIABLES
-var maxGridItems = 0;
-const dayGrid = document.querySelector("#monthView_dayGrid");
-
 const currentDate = new Date();
-//currentDate.setMonth(currentDate.getMonth() - 1);
 const daysInCurrentMonth = getDaysInMonth(currentDate);
 const firstDayOfCurrentMonth = getFirstWeekDayInMonth(currentDate);
 
@@ -65,43 +67,10 @@ function createDayDiv(type, date) {
     dateLabel.classList.add("day_date_number");
     dateLabel.textContent = date;
 
-    //const expandButton = document.createElement("button");
-    //expandButton.textContent = "------";
-    //expandButton.classList.add("day_button_expand");
-
     const newDiv = document.createElement("div");
     newDiv.className= "monthView_day";
     newDiv.classList.add(type);
     newDiv.appendChild(dateLabel);
-    //newDiv.appendChild(expandButton);
-
-    return newDiv;
-}
-
-function createEventDiv(event) {
-    const nameLabel = document.createElement("p");
-    nameLabel.textContent = event.name;
-    nameLabel.classList.add("event_preview_name");
-    let eventType = "";
-    switch (event.type) {
-        case "event":
-            eventType = "event";
-            break;
-        case "task":
-            eventType = "task";
-            break;
-        case "reminder":
-            eventType = "reminder";
-            break;
-        default:
-            eventType = "default";
-            break;
-    }
-    nameLabel.classList.add(`event_type_${eventType}`);
-
-    const newDiv = document.createElement("div");
-    newDiv.id = `event_${event.id}`;
-    newDiv.appendChild(nameLabel);
 
     return newDiv;
 }
@@ -175,18 +144,7 @@ function initCalendar() {
             default:
                 break;
         }
+        console.log(e.target);
     });
     initEvents();
-}
-
-function initEvents() {
-    const nodeList = dayGrid.children;
-    for(let i = 0; i < nodeList.length; i++) {
-        const currentDayDiv = nodeList[i];
-        eventList.forEach(obj => {
-            if(obj.date === currentDayDiv.dataset.date) {
-                currentDayDiv.appendChild(createEventDiv(obj));
-            }
-        });
-    }
 }

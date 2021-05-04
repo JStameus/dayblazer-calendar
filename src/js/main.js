@@ -20,7 +20,7 @@ var currentXP = 200;
 var requiredXP = 4000;
 var eventList = [];
 
-function main() {
+function initApp() {
     fetch(`${BASEURL}/${QUERY}`, requestOptions)
         .then(response => response.json())
         .then(data => {
@@ -38,4 +38,6 @@ function main() {
 }
 
 // APP ENTRY POINT
-main();
+window.addEventListener("DOMContentLoaded", () => {
+    initApp();
+});

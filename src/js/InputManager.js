@@ -1,3 +1,14 @@
+/* 
+== INPUT MANAGER ==
+The input manager controls all things related to user interface and input. This
+includes adding event listeners, keeping track of states of various variables
+that need to be displayed on the screen, and watching for keyboard input.
+*/
+
+// CALENDAR
+var maxGridItems = 0;
+var dayGrid = document.querySelector("#monthView_dayGrid");
+
 // SIDE MENU: RIGHT
 const rightMenuContent = document.querySelector("#menu_right_content");
 const rightToggleButton = document.querySelector("#menu_right_toggleButton");

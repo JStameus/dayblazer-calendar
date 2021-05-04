@@ -82,6 +82,7 @@
     color: $fg-color-normal;
     text-align: left;
     margin-bottom: 0.2rem;
+    pointer-events: none;
 }
 
 #currentDate_month {
