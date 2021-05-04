@@ -74,17 +74,29 @@ function createDayDiv(type, date) {
 }
 
 function createEventDiv(event) {
-    //const timeLabel = document.createElement("h5");
-    //timeLabel.textContent = event.startTime;
-    //timeLabel.classList.add("event_preview_time");
-
+    console.log(event.type);
     const nameLabel = document.createElement("p");
     nameLabel.textContent = event.name;
     nameLabel.classList.add("event_preview_name");
+    let eventType = "";
+    switch (event.type) {
+        case "event":
+            eventType = "event";
+            break;
+        case "task":
+            eventType = "task";
+            break;
+        case "reminder":
+            eventType = "reminder";
+            break;
+        default:
+            eventType = "default";
+            break;
+    }
+    nameLabel.classList.add(`event_type_${eventType}`);
 
     const newDiv = document.createElement("div");
     newDiv.id = `event_${event.id}`;
-    //newDiv.appendChild(timeLabel);
     newDiv.appendChild(nameLabel);
 
     return newDiv;

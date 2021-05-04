@@ -1,6 +1,25 @@
 .event_preview_name {
     border-radius: $border-radius-small;
-    background-color: $accent-color-primary;
-    color: $bg-color-normal;
+    color: $fg-color-normal;
+    text-shadow: 0.1rem 0.1rem 0px rgba($bg-color-black, $opacity-medium);
     font-family: $ui-font;
+    margin-top: 0.1rem;
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &.event_type_event {
+        background-color: $event-color-event;
+    }
+    &.event_type_task {
+        background-color: $event-color-task;
+    }
+    &.event_type_reminder {
+        background-color: $event-color-reminder;
+    }
+    &.event_type_default {
+        background-color: $event-color-default;
+    }
 }

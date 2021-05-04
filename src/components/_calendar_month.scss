@@ -49,6 +49,7 @@
     border: 1px solid $fg-color-normal;
     border-radius: $border-radius-small;
     background-color: $bg-color-lighter;
+    overflow-y: hidden;
     min-height: 8rem;
     &.previous {
         background: rgba($bg-color-darker, $opacity-low);
@@ -76,10 +77,7 @@
     font-family: $ui-font;
     color: $fg-color-normal;
     text-align: left;
-    position: relative;
-    box-sizing: content;
     width: 15%;
-    float: left;
     margin-top: 0.3rem;
     margin-left: 0.3rem;
 }

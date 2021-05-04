@@ -141,6 +141,7 @@ header {
   border: 1px solid #E9EFE1;
   border-radius: 5px;
   background-color: #535B61;
+  overflow-y: hidden;
   min-height: 8rem;
   transition: 0.07s;
 }
@@ -168,10 +169,7 @@ header {
   font-family: "Oswald";
   color: #E9EFE1;
   text-align: left;
-  position: relative;
-  box-sizing: content;
   width: 15%;
-  float: left;
   margin-top: 0.3rem;
   margin-left: 0.3rem;
 }
@@ -256,9 +254,28 @@ button:hover {
 
 .event_preview_name {
   border-radius: 5px;
-  background-color: #9bb888;
-  color: #434B52;
+  color: #E9EFE1;
+  text-shadow: 0.1rem 0.1rem 0px rgba(31, 33, 33, 0.65);
   font-family: "Oswald";
+  margin-top: 0.1rem;
+  margin-right: 0.2rem;
+  margin-left: 0.2rem;
+  padding: 0.2rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.event_preview_name.event_type_event {
+  background-color: #4da079;
+}
+.event_preview_name.event_type_task {
+  background-color: #a08b4d;
+}
+.event_preview_name.event_type_reminder {
+  background-color: #4a7684;
+}
+.event_preview_name.event_type_default {
+  background-color: #666666;
 }
 
 * {
