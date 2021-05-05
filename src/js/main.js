@@ -35,8 +35,6 @@ previousMonth.setMonth(currentDate.getMonth() - 1);
 const nextMonth = new Date();
 nextMonth.setMonth(currentDate.getMonth() + 1);
 
-var maxGridItems = 0;
-
 // == FETCHED DATA ==
 var globalCalendarDayList = [];
 var globalEventList = [];

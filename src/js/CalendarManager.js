@@ -2,7 +2,8 @@
                              = CALENDAR MANAGER =
     The calendar manager is responsible for handling all information related to
     dates, such as the current date, which weekday is the first day of the month
-    etc, as well as dynamically creating the elements representing the days.
+    etc, as well as dynamically creating the elements representing the days and
+    associated events. 
 */
 
 
@@ -84,8 +85,11 @@ function createDayDiv(type, date) {
  * the calendar.
  * @param {[Element]} container The parent DOM elements which will contain the
  * generated divs.
+ * @param {[Number]} gridItemAmount The amount of grid items to be generated.
+ * Can be set manually, but should usually be handled by the initCalendar
+ * function.
  */
-function createCalendarGrid(selectedDate, container) {
+function createCalendarGrid(selectedDate, container, gridItemAmount) {
     const previousMonth = new Date();
     previousMonth.setMonth(selectedDate.getMonth() - 1); 
     const firstDay = getFirstWeekDayInMonth(selectedDate);
@@ -120,7 +124,7 @@ function createCalendarGrid(selectedDate, container) {
     }
 
     // Fill up the rest of the grid with next month's days
-    const daysRemaining = maxGridItems - container.children.length;
+    const daysRemaining = gridItemAmount - container.children.length;
     for(let i = 0; i < daysRemaining; i++) {
         const currentDateString = getDateString(i + 1, nextMonth.getMonth() + 1, nextMonth.getFullYear());
         const newDiv = createDayDiv("next", i + 1);
@@ -185,12 +189,13 @@ function initEvents(eventList, container) {
 function initCalendar(selectedDate, eventList, container) {
     const firstDayOfSelectedMonth = getFirstWeekDayInMonth(selectedDate);
     // If index is 5(Saturday) or more, 35 grid items is not enough. 
+    let maxGridItems = 0;
     if (firstDayOfSelectedMonth.index >= 5) {
         maxGridItems = 42;
     } else {
         maxGridItems = 35;
     }
-    createCalendarGrid(selectedDate, container);
+    createCalendarGrid(selectedDate, container, maxGridItems);
     container.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {
             case "previous":
