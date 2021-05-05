@@ -5,12 +5,11 @@
     calls for updating these events on the server side.
 */
 
-var globalEventList = [];
-function initEvents() {
-    const nodeList = dayGrid.children;
+function initEvents(eventList, container) {
+    const nodeList = container.children;
     for(let i = 0; i < nodeList.length; i++) {
         const currentDayDiv = nodeList[i];
-        globalEventList.forEach(obj => {
+        eventList.forEach(obj => {
            if(obj.date === currentDayDiv.dataset.date) {
                 currentDayDiv.appendChild(createEventDiv(obj));
             }

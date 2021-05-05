@@ -5,26 +5,15 @@
     etc, as well as dynamically creating the elements representing the days.
 */
 
-// MAIN CALENDAR VARIABLES
-const currentDate = new Date();
-const daysInCurrentMonth = getDaysInMonth(currentDate);
-const firstDayOfCurrentMonth = getFirstWeekDayInMonth(currentDate);
-
-const previousMonth = new Date();
-previousMonth.setMonth(currentDate.getMonth() - 1);
-const nextMonth = new Date();
-nextMonth.setMonth(currentDate.getMonth() + 1);
-
-var globalCalendarDayList = [];
 
 function getDaysInMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
 // Take a date as an argument, and return the first weekday of that month
-function getFirstWeekDayInMonth(date) {
-    const month = date.getMonth();
-    const year = date.getFullYear();
+function getFirstWeekDayInMonth(selectedDate) {
+    const month = selectedDate.getMonth();
+    const year = selectedDate.getFullYear();
     const firstDayDate = new Date(year, month, 1);
     const firstDayDateSlice = firstDayDate
         .toString()
@@ -63,14 +52,15 @@ function getDateString(day, month, year) {
     return `${day}-${month}-${year}`;
 }
 
-function createCalendarDayData(date) {
-    globalCalendarDayList = [];
-    const numberOfDays = getDaysInMonth(date);
-    for(let i = 0; i < numberOfDays; i++) {
-        const dateString = getDateString(i + 1, date.getMonth() + 1, date.getFullYear());
-        globalCalendarDayList.push(new CalendarDay(dateString)); 
+function createCalendarDayData(selectedDate, dayList, clearDayList = true) {
+    if (clearDayList) {
+        dayList = [];
     }
-
+    const numberOfDays = getDaysInMonth(selectedDate);
+    for(let i = 0; i < numberOfDays; i++) {
+        const dateString = getDateString(i + 1, selectedDate.getMonth() + 1, selectedDate.getFullYear());
+        dayList.push(new CalendarDay(dateString)); 
+    }
 }
 
 function createDayDiv(type, date) {
@@ -86,10 +76,19 @@ function createDayDiv(type, date) {
     return newDiv;
 }
 
-// Takes a date as an argument, and creates a calendar grid of that date's
-// corresponding month
-function createCalendarGrid(date) {
-    const firstDay = getFirstWeekDayInMonth(date);
+/**
+ * [Creates divs representing days in a calendar with the selected date as its
+ * starting point(usually the current date), and appends them to the specified
+ * container.]
+ * @param {[Date]} selectedDate The date which specifies the starting point of
+ * the calendar.
+ * @param {[Element]} container The parent DOM elements which will contain the
+ * generated divs.
+ */
+function createCalendarGrid(selectedDate, container) {
+    const previousMonth = new Date();
+    previousMonth.setMonth(selectedDate.getMonth() - 1); 
+    const firstDay = getFirstWeekDayInMonth(selectedDate);
 
     // Getting a list of the last days of the previous month, and using it to
     // get the date numbers to use for the "previous" day divs
@@ -109,40 +108,48 @@ function createCalendarGrid(date) {
         const currentDateString = getDateString(remainder[i], previousMonth.getMonth() + 1, previousMonth.getFullYear());
         const newDiv = createDayDiv("previous", remainder[i]);
         newDiv.dataset.date = currentDateString;
-        dayGrid.appendChild(newDiv);
+        container.appendChild(newDiv);
     }     
 
     // Add all the days of the current month
     for(let i = 0; i < daysInCurrentMonth; i++) {
-        const currentDateString = getDateString(i + 1, currentDate.getMonth() + 1, currentDate.getFullYear());
+        const currentDateString = getDateString(i + 1, selectedDate.getMonth() + 1, selectedDate.getFullYear());
         const newDiv = createDayDiv("current", i + 1);
         newDiv.dataset.date = currentDateString;
-        dayGrid.appendChild(newDiv);
+        container.appendChild(newDiv);
     }
 
     // Fill up the rest of the grid with next month's days
-    const daysRemaining = maxGridItems - dayGrid.children.length;
+    const daysRemaining = maxGridItems - container.children.length;
     for(let i = 0; i < daysRemaining; i++) {
         const currentDateString = getDateString(i + 1, nextMonth.getMonth() + 1, nextMonth.getFullYear());
         const newDiv = createDayDiv("next", i + 1);
         newDiv.dataset.date = currentDateString;
-        dayGrid.appendChild(newDiv);
+        container.appendChild(newDiv);
     }
 
     // Lastly, add the "today" class to the current day
-    dayGrid.children[date.getDate() + firstDay.index - 1].classList.add("today");
+    container.children[selectedDate.getDate() + firstDay.index - 1].classList.add("today");
 }
 
-function initCalendar() {
+/**
+ * Initializes an interactable calendar with the specified date as its starting
+ * point, and adds an event listener to the container that holds the DOM
+ * elements representing the calendar, listening for clicks.
+ * @param {[Date]} selectedDate The date to be used as the calendar's starting point.
+ * @param {[Element]} container The container for the interactive calendar.
+*/
+function initCalendar(selectedDate, container) {
+    const firstDayOfSelectedMonth = getFirstWeekDayInMonth(selectedDate);
     // If index is 5(Saturday) or more, 35 grid items is not enough. 
-    if (firstDayOfCurrentMonth.index >= 5) {
+    if (firstDayOfSelectedMonth.index >= 5) {
         maxGridItems = 42;
     } else {
         maxGridItems = 35;
     }
-    createCalendarGrid(currentDate);
-    createCalendarDayData(currentDate);
-    dayGrid.addEventListener("click", (e) => {
+    createCalendarGrid(selectedDate);
+    createCalendarDayData(selectedDate);
+    container.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {
             case "previous":
                 // TODO: Go back one month
