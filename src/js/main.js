@@ -26,7 +26,6 @@ var userXP = {
 
 // == MAIN CALENDAR VARIABLES ==
 const currentDate = new Date();
-
 const daysInCurrentMonth = getDaysInMonth(currentDate);
 const firstDayOfCurrentMonth = getFirstWeekDayInMonth(currentDate);
 
@@ -44,11 +43,11 @@ var globalEventList = [];
 
 // == DOM ELEMENTS ==
 // === MAIN CALENDAR GRID ===
-const dayGrid = document.querySelector("#monthView_dayGrid");
+var dayGrid = document.querySelector("#monthView_dayGrid");
 
 // === FOOTER ===
 const progressBarFill = document.querySelector("#progressBar_fill");
-const xpDisplay = document.querySelector("#footer_xpDisplay");
+const xpDisplayText = document.querySelector("#footer_xpDisplay");
 
 // === DAY VIEW ===
 const dayView = document.querySelector("#day_view_full");
@@ -91,12 +90,13 @@ function initApp() {
                     globalEventList.push(new CalendarEvent(obj));
                 });
             }
-            initCalendar();
+            initCalendar(currentDate, dayGrid);
+            initEvents(globalEventList, dayGrid);
         })
         .catch(err => {
             console.log(`ERROR: ${err}`);
         });
-    updateProgressBar();
+    updateProgressBar(progressBarFill, xpDisplayText, userXP);
 }
 // ------------------------
 

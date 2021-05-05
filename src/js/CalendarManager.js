@@ -147,8 +147,8 @@ function initCalendar(selectedDate, container) {
     } else {
         maxGridItems = 35;
     }
-    createCalendarGrid(selectedDate);
-    createCalendarDayData(selectedDate);
+    createCalendarGrid(selectedDate, container);
+    //createCalendarDayData(selectedDate);
     container.addEventListener("click", (e) => {
         switch (e.target.classList[1]) {
             case "previous":
@@ -163,5 +163,4 @@ function initCalendar(selectedDate, container) {
                 break;
         }
     });
-    initEvents();
 }
