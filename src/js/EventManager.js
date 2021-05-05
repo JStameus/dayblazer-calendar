@@ -1,3 +1,10 @@
+/*
+                              == EVENT MANAGER ==
+    The event manager creates DOM elements for events in the global event list, and
+    contains functions for removing, adding and updating events, and making API
+    calls for updating these events on the server side.
+*/
+
 var globalEventList = [];
 function initEvents() {
     const nodeList = dayGrid.children;
