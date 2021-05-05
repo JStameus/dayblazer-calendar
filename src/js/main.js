@@ -90,8 +90,7 @@ function initApp() {
                     globalEventList.push(new CalendarEvent(obj));
                 });
             }
-            initCalendar(currentDate, dayGrid);
-            initEvents(globalEventList, dayGrid);
+            initCalendar(currentDate, globalEventList, dayGrid);
         })
         .catch(err => {
             console.log(`ERROR: ${err}`);
