@@ -6,12 +6,25 @@
     associated events. 
 */
 
-
+/**
+ * Returns a number representing the amount of days in the date's current
+ * month.
+ * @param {[Date]} date The date to get the day amount from.
+ * @return {[Number]} The amount of days in the date's month.
+ */
 function getDaysInMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
-// Take a date as an argument, and return the first weekday of that month
+/**
+ * Gets the name and index of the first weekday of the selected date's month.
+ * The function reads from a standard Date object and attempts to parse the
+ * string value of it, and returns an "UNDEFINED" weekday if it fails.
+ * @param {[Date]} selectedDate The date that should be used to get the current
+ * month.
+ * @return {[Object]} An object containing two properties: a string value called
+ * weekday and a number called index.
+ */
 function getFirstWeekDayInMonth(selectedDate) {
     const month = selectedDate.getMonth();
     const year = selectedDate.getFullYear();
@@ -41,6 +54,16 @@ function getFirstWeekDayInMonth(selectedDate) {
     }
 }
 
+/**
+ * Takes numbers for a day, month and year, and returns a formatted string value
+ * that matches the formatting of the API's event objects.
+ * @param {[Number]} day A two-digit number representing day of the month. If a
+ * single digit is given, a 0 will be prepended to it.
+ * @param {[Number]} month A two-digit number representing the month, If a
+ * single digit is given, a 0 will be prepended to it.
+ * @param {[Number]} year A four-digit number representing the year.
+ * @return {[String]} A string value representing a date in DD-MM-YYYY format.
+ */
 function getDateString(day, month, year) {
     // Prepend a 0 to the number is it's a single digit
     if (day.toString().length === 1) {
@@ -53,6 +76,18 @@ function getDateString(day, month, year) {
     return `${day}-${month}-${year}`;
 }
 
+/**
+ * Populates an array with CalendarDay objects for each day in the specified
+ * date's month. By default, the array is first cleared before adding new
+ * CalendarDays, but can be overriden by passing "false" as the third argument.
+ * This not recommended however, and it could result in duplicate data.
+ * @param {Date} selectedDate The date to use as the starting point for
+ * populating the list of days in the corresponding month.
+ * @param {Array} dayList The array which will be cleared and filled with
+ * CalendarDay objects.
+ * @param {Boolean} clearDayList Set to true by default, which is the
+ * recommended setting. 
+ */
 function createCalendarDayData(selectedDate, dayList, clearDayList = true) {
     if (clearDayList) {
         dayList = [];
@@ -64,10 +99,22 @@ function createCalendarDayData(selectedDate, dayList, clearDayList = true) {
     }
 }
 
-function createDayDiv(type, date) {
+/**
+ * Creates and returns a div displaying a number corresponding to the date the
+ * div represents on the calendar. The div also has a CSS class which tells it
+ * if it belongs to the previous, current or next month.
+ * @param {String} type Should be either "previous", "current" or "next".
+ * Represents if the day the div represents belongs to the current month, or the
+ * next or previous.
+ * @param {Number} day A number representing the day of the month the div
+ * represents.
+ * @return {Element} A div with the class "day_date_number", and a child node of
+ * type h4 with the day number.
+ */
+function createDayDiv(type, day) {
     const dateLabel = document.createElement("h4");
     dateLabel.classList.add("day_date_number");
-    dateLabel.textContent = date;
+    dateLabel.textContent = day;
 
     const newDiv = document.createElement("div");
     newDiv.className= "monthView_day";
@@ -136,26 +183,19 @@ function createCalendarGrid(selectedDate, container, gridItemAmount) {
     container.children[selectedDate.getDate() + firstDay.index - 1].classList.add("today");
 }
 
+/**
+ * Creates and returns a div representing a CalendarEvent, representing its
+ * name, setting a class appropriate to its type, and adding its id value to the
+ * div's id for easy identification in the DOM.
+ * @param {CalendarEvent} event The event data to use for creating the div.
+ * @return A div element with two classes appropriate to its name and type, and
+ * an id corresponding to the event's id.
+*/
 function createEventDiv(event) {
     const nameLabel = document.createElement("p");
     nameLabel.textContent = event.name;
     nameLabel.classList.add("event_preview_name");
-    let eventType = "";
-    switch (event.type) {
-        case "event":
-            eventType = "event";
-            break;
-        case "task":
-            eventType = "task";
-            break;
-        case "reminder":
-            eventType = "reminder";
-            break;
-        default:
-            eventType = "default";
-            break;
-    }
-    nameLabel.classList.add(`event_type_${eventType}`);
+    nameLabel.classList.add(`event_type_${event.type}`);
 
     const newDiv = document.createElement("div");
     newDiv.id = `event_${event.id}`;
@@ -165,6 +205,15 @@ function createEventDiv(event) {
     return newDiv;
 }
 
+/**
+ * Loops through the specified container element's children and check the
+ * specified event list for any events that belong to that specific day, and
+ * creates and appends them if a match is found.
+ * @param {Array} eventList The array containing the CalendarEvent objects.
+ * @param {Element} container The DOM element containing divs representing days
+ * on the calendar. Requires the container's direct children to have a "date"
+ * attribute in their data set that matches the format of the CalendarEvents.
+ */
 function initEvents(eventList, container) {
     const nodeList = container.children;
     for(let i = 0; i < nodeList.length; i++) {
