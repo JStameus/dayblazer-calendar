@@ -26,3 +26,34 @@
         background-color: $event-color-default;
     }
 }
+
+.schedule_event {
+    border-radius: $border-radius-large;
+    padding: 0.6rem;
+    margin: 0.3rem;
+    @include apply-box-shadow($bg-color-black, $opacity-medium, 0.4rem);
+    h3 {
+        font-family: $ui-font;
+        color: $fg-color-normal;
+    }
+    h2 {
+        font-family: $ui-font;
+        color: $fg-color-normal;
+    }
+    p {
+        font-family: $content-font;
+        color: $fg-color-normal;
+    }
+    &.event_type_event {
+        background-color: $event-color-event;
+    }
+    &.event_type_task {
+        background-color: $event-color-task;
+    }
+    &.event_type_reminder {
+        background-color: $event-color-reminder;
+    }
+    &.event_type_default {
+        background-color: $event-color-default;
+    }
+}

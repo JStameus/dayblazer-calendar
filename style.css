@@ -301,6 +301,37 @@ button:hover {
   background-color: #666666;
 }
 
+.schedule_event {
+  border-radius: 10px;
+  padding: 0.6rem;
+  margin: 0.3rem;
+  box-shadow: 2px 2px 0.4rem rgba(31, 33, 33, 0.65);
+}
+.schedule_event h3 {
+  font-family: "Oswald";
+  color: #E9EFE1;
+}
+.schedule_event h2 {
+  font-family: "Oswald";
+  color: #E9EFE1;
+}
+.schedule_event p {
+  font-family: "Ubuntu Condensed";
+  color: #E9EFE1;
+}
+.schedule_event.event_type_event {
+  background-color: #4da079;
+}
+.schedule_event.event_type_task {
+  background-color: #a08b4d;
+}
+.schedule_event.event_type_reminder {
+  background-color: #4a7684;
+}
+.schedule_event.event_type_default {
+  background-color: #666666;
+}
+
 #day_view_full {
   margin: auto;
   position: absolute;
@@ -339,6 +370,12 @@ button:hover {
   background-color: #33383D;
   border-radius: 5px;
   padding: 0.5rem;
+}
+#day_view_full #day_view_full_schedule {
+  background-color: #33383D;
+  border-radius: 5px;
+  padding: 0.2rem;
+  overflow-y: scroll;
 }
 
 * {

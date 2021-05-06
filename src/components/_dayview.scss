@@ -26,4 +26,9 @@
     #day_view_full_summary {
         @include info-box(0.5rem);
     }
+
+    #day_view_full_schedule {
+        @include info-box(0.2rem);
+        overflow-y: scroll;
+    }
 }
