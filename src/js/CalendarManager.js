@@ -9,8 +9,8 @@
 /**
  * Returns a number representing the amount of days in the date's current
  * month.
- * @param {[Date]} date The date to get the day amount from.
- * @return {[Number]} The amount of days in the date's month.
+ * @param {Date} date The date to get the day amount from.
+ * @return {Number} The amount of days in the date's month.
  */
 function getDaysInMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -20,9 +20,9 @@ function getDaysInMonth(date) {
  * Gets the name and index of the first weekday of the selected date's month.
  * The function reads from a standard Date object and attempts to parse the
  * string value of it, and returns an "UNDEFINED" weekday if it fails.
- * @param {[Date]} selectedDate The date that should be used to get the current
+ * @param {Date} selectedDate The date that should be used to get the current
  * month.
- * @return {[Object]} An object containing two properties: a string value called
+ * @return {Object} An object containing two properties: a string value called
  * weekday and a number called index.
  */
 function getFirstWeekDayInMonth(selectedDate) {
@@ -57,12 +57,12 @@ function getFirstWeekDayInMonth(selectedDate) {
 /**
  * Takes numbers for a day, month and year, and returns a formatted string value
  * that matches the formatting of the API's event objects.
- * @param {[Number]} day A two-digit number representing day of the month. If a
+ * @param {Number} day A two-digit number representing day of the month. If a
  * single digit is given, a 0 will be prepended to it.
- * @param {[Number]} month A two-digit number representing the month, If a
+ * @param {Number} month A two-digit number representing the month, If a
  * single digit is given, a 0 will be prepended to it.
- * @param {[Number]} year A four-digit number representing the year.
- * @return {[String]} A string value representing a date in DD-MM-YYYY format.
+ * @param {Number} year A four-digit number representing the year.
+ * @return {String} A string value representing a date in DD-MM-YYYY format.
  */
 function getDateString(day, month, year) {
     // Prepend a 0 to the number is it's a single digit
@@ -77,26 +77,35 @@ function getDateString(day, month, year) {
 }
 
 /**
- * Populates an array with CalendarDay objects for each day in the specified
- * date's month. By default, the array is first cleared before adding new
- * CalendarDays, but can be overriden by passing "false" as the third argument.
- * This not recommended however, and it could result in duplicate data.
- * @param {Date} selectedDate The date to use as the starting point for
- * populating the list of days in the corresponding month.
- * @param {Array} dayList The array which will be cleared and filled with
- * CalendarDay objects.
- * @param {Boolean} clearDayList Set to true by default, which is the
- * recommended setting. 
- */
-function createCalendarDayData(selectedDate, dayList, clearDayList = true) {
-    if (clearDayList) {
-        dayList = [];
-    }
+ Creates an empty array and fills it with as many CalendarDay objects as there
+ are days in the specified month, then returns the array.
+ @param {Date} selectedDate The date to use as a basis for how many days there are in a month.
+ @return {Array} An array of 1-31 CalendarDay objects with their respective dates.
+*/
+function createCalendarDayData(selectedDate) {
+    const dayList = [];
     const numberOfDays = getDaysInMonth(selectedDate);
     for(let i = 0; i < numberOfDays; i++) {
         const dateString = getDateString(i + 1, selectedDate.getMonth() + 1, selectedDate.getFullYear());
         dayList.push(new CalendarDay(dateString)); 
     }
+    return dayList;
+}
+
+/**
+ Creates an empty array and fills it with CalendarEvent objects created from the
+ events in the data being passed as an argument. 
+ TODO: Should errors be handled here, or only in the API call?
+ @param {Object} data The object containing the array of events which will be
+ added to the new array.
+ @return {Array} An array of X CalendarEvent objects.
+*/
+function createEventList(data) {
+    const eventList = [];
+    data.events.forEach(obj => {
+        eventList.push(new CalendarEvent(obj));
+    });
+    return eventList;
 }
 
 /**
@@ -128,11 +137,11 @@ function createDayDiv(type, day) {
  * [Creates divs representing days in a calendar with the selected date as its
  * starting point(usually the current date), and appends them to the specified
  * container.]
- * @param {[Date]} selectedDate The date which specifies the starting point of
+ * @param {Date} selectedDate The date which specifies the starting point of
  * the calendar.
- * @param {[Element]} container The parent DOM elements which will contain the
+ * @param {Element} container The parent DOM elements which will contain the
  * generated divs.
- * @param {[Number]} gridItemAmount The amount of grid items to be generated.
+ * @param {Number} gridItemAmount The amount of grid items to be generated.
  * Can be set manually, but should usually be handled by the initCalendar
  * function.
  */
@@ -230,10 +239,12 @@ function initEvents(eventList, container) {
  * Initializes an interactable calendar with the specified date as its starting
  * point, and adds an event listener to the container that holds the DOM
  * elements representing the calendar, listening for clicks.
- * @param {[Date]} selectedDate The date to be used as the calendar's starting point.
- * @param {[Array]} eventList The list of events to use to populate the
+ * @param {Date} selectedDate The date to be used as the calendar's starting point.
+ * @param {Array} eventList The list of CalendarEvents to use to populate the
  * calendar view.
- * @param {[Element]} container The container for the interactive calendar.
+ * @param {Array} dayList The list of CalendarDays in the selected date's month,
+ * which will be filled on initialization.
+ * @param {Element} container The container for the interactive calendar.
 */
 function initCalendar(selectedDate, eventList, container) {
     const firstDayOfSelectedMonth = getFirstWeekDayInMonth(selectedDate);

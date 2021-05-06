@@ -17,6 +17,10 @@ const requestOptions = {
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
 
+// == FETCHED DATA ==
+var globalCalendarDayList = [];
+var globalEventList = [];
+
 // == USER XP ==
 // TODO: Should probably not be stored locally. Only modify via API calls?
 var userXP = {
@@ -34,10 +38,6 @@ previousMonth.setMonth(currentDate.getMonth() - 1);
 
 const nextMonth = new Date();
 nextMonth.setMonth(currentDate.getMonth() + 1);
-
-// == FETCHED DATA ==
-var globalCalendarDayList = [];
-var globalEventList = [];
 
 // == DOM ELEMENTS ==
 // === MAIN CALENDAR GRID ===
@@ -84,9 +84,8 @@ function initApp() {
         .then(response => response.json())
         .then(data => {
             if(data.events) {
-                data.events.forEach(obj => {
-                    globalEventList.push(new CalendarEvent(obj));
-                });
+                globalEventList = createEventList(data);
+                globalCalendarDayList = createCalendarDayData(currentDate);
             }
             initCalendar(currentDate, globalEventList, dayGrid);
         })
