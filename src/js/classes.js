@@ -33,5 +33,6 @@ class CalendarEvent {
         this.startTime = eventData.startTime;
         this.endTime = eventData.endTime;
         this.type = eventData.type;
+        this.finished = eventData.finished;
     }
 }

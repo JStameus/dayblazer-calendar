@@ -13,6 +13,30 @@ const getRequestOptions = {
         "Board-Token": `${userData.token}`
     },
 }
+
+function postTest() {
+    const requestBody = {
+        owner: `${userData.user}`,
+        guests: [],
+        events: globalEventList,
+    }
+    const options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "User-Name": `${userData.user}`,
+            "Board-Token": `${userData.token}`,
+        },
+        body: JSON.stringify(requestBody),
+    };
+    console.log("Sending POST...");
+    fetch(`${BASEURL}`, options)
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
+}
+
 // == API QUERY SETTING ==
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
@@ -20,6 +44,11 @@ const QUERY = `u=jstameus`;
 // == FETCHED DATA ==
 var globalCalendarDayList = [];
 var globalEventList = [];
+
+var dataObject = {
+    name: "Bubby",
+    level: 52
+}
 
 // == USER XP ==
 // TODO: Should probably not be stored locally. Only modify via API calls?
