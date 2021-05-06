@@ -4,7 +4,7 @@ const userData = {
     user: "jstameus",
     token: "abc123"
 }
-const requestOptions = {
+const getRequestOptions = {
     method: "GET",
     mode: "cors",
     headers: {
@@ -80,7 +80,7 @@ rightToggleButton.addEventListener("click", () => {
 
 // == MAIN APP FUNCTIONS ==
 function initApp() {
-    fetch(`${BASEURL}/${QUERY}`, requestOptions)
+    fetch(`${BASEURL}/${QUERY}`, getRequestOptions)
         .then(response => response.json())
         .then(data => {
             if(data.events) {
