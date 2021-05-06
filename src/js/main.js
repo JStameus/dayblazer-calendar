@@ -14,29 +14,6 @@ const getRequestOptions = {
     },
 }
 
-function postTest() {
-    const requestBody = {
-        owner: `${userData.user}`,
-        guests: [],
-        events: globalEventList,
-    }
-    const options = {
-        method: "POST",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-            "User-Name": `${userData.user}`,
-            "Board-Token": `${userData.token}`,
-        },
-        body: JSON.stringify(requestBody),
-    };
-    console.log("Sending POST...");
-    fetch(`${BASEURL}`, options)
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => console.log(err));
-}
-
 // == API QUERY SETTING ==
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
@@ -44,11 +21,6 @@ const QUERY = `u=jstameus`;
 // == FETCHED DATA ==
 var globalCalendarDayList = [];
 var globalEventList = [];
-
-var dataObject = {
-    name: "Bubby",
-    level: 52
-}
 
 // == USER XP ==
 // TODO: Should probably not be stored locally. Only modify via API calls?
@@ -71,6 +43,28 @@ nextMonth.setMonth(currentDate.getMonth() + 1);
 // == DOM ELEMENTS ==
 // === MAIN CALENDAR GRID ===
 var dayGrid = document.querySelector("#monthView_dayGrid");
+dayGrid.addEventListener("click", (e) => {
+    // TODO: This function is quite long and should be moved to its appropriate
+    // file later.
+    switch (e.target.classList[1]) {
+        case "previous":
+            // TODO: Go back one month
+            break;
+        case "next":
+            // TODO: Go forward one month
+            break;
+        case "current":
+            const selectedDay = globalCalendarDayList.find(obj => {
+                if(e.target.dataset.date === obj.date) {
+                    return true;
+                }
+            });
+            selectedDay.renderEventList(scheduleContainer);
+            toggleElementVisibility(dayView, screenBlocker, 210);
+        default:
+            break;
+    }
+});
 
 // === FOOTER ===
 const progressBarFill = document.querySelector("#progressBar_fill");
@@ -79,6 +73,7 @@ const xpDisplayText = document.querySelector("#footer_xpDisplay");
 // === DAY VIEW ===
 const dayView = document.querySelector("#day_view_full");
 const screenBlocker = document.querySelector("#screen_blocker");
+const scheduleContainer = document.querySelector("#day_view_full_schedule");
 
 // === RIGHT SIDE MENU ===
 const rightMenuContent = document.querySelector("#menu_right_content");
@@ -87,13 +82,13 @@ const rightMenuContent = document.querySelector("#menu_right_content");
 // === DAY VIEW ===
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 closeDayViewButton.addEventListener("click", () => {
-    toggleDayView();
+    toggleElementVisibility(dayView, screenBlocker, 210);
 });
 
 // === RIGHT SIDE MENU ===
 const showTodayButton = document.querySelector("#sideMenu_showAgenda");
 showTodayButton.addEventListener("click", () => {
-    toggleDayView();
+    toggleElementVisibility(dayView, screenBlocker, 210);
 });
 
 const rightToggleButton = document.querySelector("#menu_right_toggleButton");

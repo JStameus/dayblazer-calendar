@@ -200,7 +200,7 @@ function createCalendarGrid(selectedDate, container, gridItemAmount) {
  * @return A div element with two classes appropriate to its name and type, and
  * an id corresponding to the event's id.
 */
-function createEventDiv(event) {
+function createEventPreviewDiv(event) {
     const nameLabel = document.createElement("p");
     nameLabel.textContent = event.name;
     nameLabel.classList.add("event_preview_name");
@@ -229,7 +229,7 @@ function initEvents(eventList, container) {
         const currentDayDiv = nodeList[i];
         eventList.forEach(obj => {
            if(obj.date === currentDayDiv.dataset.date) {
-                currentDayDiv.appendChild(createEventDiv(obj));
+                currentDayDiv.appendChild(createEventPreviewDiv(obj));
             }
         });
     }
@@ -256,19 +256,5 @@ function initCalendar(selectedDate, eventList, container) {
         maxGridItems = 35;
     }
     createCalendarGrid(selectedDate, container, maxGridItems);
-    container.addEventListener("click", (e) => {
-        switch (e.target.classList[1]) {
-            case "previous":
-                // TODO: Go back one month
-                break;
-            case "next":
-                // TODO: Go forward one month
-                break;
-            case "current":
-                // TODO: Show daily agenda
-            default:
-                break;
-        }
-    });
     initEvents(eventList, container);
 }
