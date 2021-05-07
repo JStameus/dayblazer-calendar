@@ -60,6 +60,7 @@ dayGrid.addEventListener("click", (e) => {
                 }
             });
             selectedDay.renderEventList(scheduleContainer);
+            selectedDay.renderSummary(summaryContainer);
             toggleElementVisibility(dayView, screenBlocker, 210);
         default:
             break;
@@ -74,6 +75,7 @@ const xpDisplayText = document.querySelector("#footer_xpDisplay");
 const dayView = document.querySelector("#day_view_full");
 const screenBlocker = document.querySelector("#screen_blocker");
 const scheduleContainer = document.querySelector("#day_view_full_schedule");
+const summaryContainer = document.querySelector("#day_view_full_summary");
 
 // === RIGHT SIDE MENU ===
 const rightMenuContent = document.querySelector("#menu_right_content");
@@ -88,7 +90,7 @@ closeDayViewButton.addEventListener("click", () => {
 // === RIGHT SIDE MENU ===
 const showTodayButton = document.querySelector("#sideMenu_showAgenda");
 showTodayButton.addEventListener("click", () => {
-    toggleElementVisibility(dayView, screenBlocker, 210);
+    toggleElementVisibility(dayView, screenBlocker, 210, true);
 });
 
 const rightToggleButton = document.querySelector("#menu_right_toggleButton");

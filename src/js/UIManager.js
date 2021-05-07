@@ -37,8 +37,20 @@ function updateProgressBar(progressBarFillEl, xpTextEl, xpPool) {
  * alongside the primary element. Set to "null" by default.
  * @param {Number} fadeTime The time in miliseconds before the background
  * blocker is completely disabled after the primary element is disabled.
+ * @param {Boolean} override If set to true, this function will always toggle
+ * the selected element ON. Can be used to re-render an element without having
+ * to toggle it off first.
  */
-function toggleElementVisibility(element, backgroundBlocker = null, fadeTime = 200) {
+function toggleElementVisibility(element, backgroundBlocker = null, fadeTime = 200, override = false) {
+    if(override === true) {
+        element.style.display = "block";
+        if(backgroundBlocker) {
+            backgroundBlocker.style.display = "block";
+            backgroundBlocker.classList.add("enabled");
+            backgroundBlocker.classList.remove("disabled");
+        }
+        return;
+    }
     if(element.style.display === "none") {
         element.style.display = "block";
         if(backgroundBlocker) {
