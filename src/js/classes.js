@@ -10,15 +10,29 @@ class CalendarDay {
         // client and server has to be strictly validated and secured.
         container.innerHTML = ``;
         this.eventList.forEach(obj => {
+            // If the event is a task, it should have a checkbox and XP display
+            let xpDisplay = "";
+            let checkBox = "";
+            let checkBoxValue = ""; 
+            if(obj.type === "task") {
+                xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
+                checkBoxValue = obj.isFinished ? "checked" : "unchecked";
+                //checkBox = `<input type="checkbox" value="${checkBoxValue}" class="event_main_checkbox" id="event_checkbox_${obj.id}">`;
+                checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentEvent=${obj.id}></div>`;
+            }
             const eventDiv = document.createElement("div");
             eventDiv.classList.add(`schedule_event`);
             eventDiv.classList.add(`event_type_${obj.type}`);
 
-            //const eventTitle = document.createElement("h3");
-            //eventTitle.textContent = obj.name;
             eventDiv.innerHTML = `
-                <h3>${obj.startTime} - ${obj.endTime}</h3>
-                <h2 class="schedule_event_name">${obj.name}</h2>
+                <div class="schedule_event_header">
+                    <h3 class="event_header_time">${obj.startTime} - ${obj.endTime}</h3>
+                    ${xpDisplay}
+                </div>
+                <div class="schedule_event_main">
+                    <h2 class="schedule_event_name">${obj.name}</h2>
+                    ${checkBox}
+                </div>
                 <hr>
                 <p class="schedule_event_description">${obj.description}</p>
             `;
@@ -93,6 +107,7 @@ class CalendarEvent {
         this.endTime = eventData.endTime;
         this.type = eventData.type;
         this.difficulty = eventData.difficulty;
+        this.xpValue = eventData.xpValue;
         this.finished = eventData.finished;
     }
     updateEventInfo(eventData) {
@@ -105,6 +120,8 @@ class CalendarEvent {
         this.endTime = eventData.endTime;
         this.type = eventData.type;
         this.finished = eventData.finished;
+        this.difficulty = eventData.difficulty;
+        this.xpValue = eventData.xpValue;
         console.log(`Updated CalendarEvent: ${this.id}`);
     }
 }

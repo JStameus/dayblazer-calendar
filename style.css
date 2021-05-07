@@ -307,13 +307,56 @@ button:hover {
   margin: 0.3rem;
   box-shadow: 2px 2px 0.4rem rgba(31, 33, 33, 0.65);
 }
-.schedule_event h3 {
+.schedule_event .schedule_event_header {
+  margin: 0.2rem 0;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.schedule_event .schedule_event_header .event_header_time {
+  font-family: "Oswald";
+  color: #E9EFE1;
+  text-align: left;
+}
+.schedule_event .schedule_event_header .event_header_xp_value {
+  background-color: #434B52;
+  border-radius: 5px;
+  font-family: "Oswald";
+  color: #E9EFE1;
+  text-align: center;
+}
+.schedule_event .schedule_event_header .event_header_xp_value span {
+  color: #F8ECBC;
+}
+.schedule_event .schedule_event_main {
+  margin: 0.2rem 0;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.schedule_event .schedule_event_main .schedule_event_name {
   font-family: "Oswald";
   color: #E9EFE1;
 }
-.schedule_event h2 {
-  font-family: "Oswald";
-  color: #E9EFE1;
+.schedule_event .schedule_event_main .event_main_checkbox {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: auto;
+  border-radius: 10px;
+  border: 2px solid #F8ECBC;
+  transition: 0.1s;
+}
+.schedule_event .schedule_event_main .event_main_checkbox:hover {
+  transform: scale(1.1);
+  border-color: #E9EFE1;
+  transition: 0.1s;
+}
+.schedule_event .schedule_event_main .event_main_checkbox.checked {
+  background-color: #9bb888;
+  transition: 0.1s;
+}
+.schedule_event .schedule_event_main .event_main_checkbox.unchecked {
+  background-color: #434B52;
+  transition: 0.1s;
 }
 .schedule_event p {
   font-family: "Ubuntu Condensed";

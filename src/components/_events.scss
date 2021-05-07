@@ -32,13 +32,58 @@
     padding: 0.6rem;
     margin: 0.3rem;
     @include apply-box-shadow($bg-color-black, $opacity-medium, 0.4rem);
-    h3 {
-        font-family: $ui-font;
-        color: $fg-color-normal;
+
+    .schedule_event_header {
+        margin: 0.2rem 0;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        .event_header_time {
+            font-family: $ui-font;
+            color: $fg-color-normal;
+            text-align: left;
+        }
+        .event_header_xp_value {
+            background-color: $bg-color-normal;
+            border-radius: $border-radius-small;
+            font-family: $ui-font;
+            color: $fg-color-normal;
+            text-align: center;
+            span {
+                color: $accent-color-secondary;
+            }
+        }
     }
-    h2 {
-        font-family: $ui-font;
-        color: $fg-color-normal;
+
+    .schedule_event_main {
+        margin: 0.2rem 0;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        .schedule_event_name {
+            font-family: $ui-font;
+            color: $fg-color-normal;
+        }
+        .event_main_checkbox {
+            display: block;
+            width: 2.5rem;
+            height: 2.5rem;
+            margin: auto;
+            border-radius: $border-radius-large;
+            border: 2px solid $accent-color-secondary;
+            transition: 0.1s;
+            &:hover {
+                transform: scale(1.1);
+                border-color: $fg-color-normal;
+                transition: 0.1s;
+            }
+            &.checked {
+                background-color: $accent-color-primary;
+                transition: 0.1s;
+            }
+            &.unchecked {
+                background-color: $bg-color-normal;
+                transition: 0.1s;
+            }
+        }
     }
     p {
         font-family: $content-font;
