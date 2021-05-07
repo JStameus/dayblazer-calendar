@@ -11,30 +11,32 @@
 
 	<body>
         <main>
-            <div id="menu_right">
-                <button id="menu_right_toggleButton">-</button>
-                <h2>Today</h2>
-                <div id="menu_right_content">
+            <button id="menu_right_toggle_button">=</button>
+            <div id="menu_right" class="open">
+                <div id="menu_right_header">
+                    <h3>Weekday</h3>
+                    <h2>DD May, YYYY</h2>
+                    <h1>HH:MM</h1>
                     <hr>
-                    <h3>Monday - May 3 - 2021</h3>
-                    <h1>10:35</h1>
-                    <hr>
-                    <h2>Coming Up</h2>
-                    <div id="sideMenu_nextTask">
-                        <div id="nextTask_info">
-                            <h3>14:00</h3>
-                            <h3>Do the thing</h3> 
-                        </div>
-                       <button id="nextTask_goto">?</button>
-                    </div>
-                    <h2>Active Quest</h2>
-                    <div id="sideMenu_activeQuest">
-                        <h3>Find the meaning of life</h3>
-                        <button>?</button>
+                </div> 
+                <h2 class="menu_right_label">Next Event</h2>
+                <div id="menu_right_next_event">
+                    <div id="menu_right_next_event_header">
+                        <h3 id="next_event_header_time">HH:MM</h3>
+                        <h3 id="next_event_header_xp"><span>150</span> XP</h3>
                     </div>
                     <hr>
+                    <div id="menu_right_next_event_body">
+                        <h2>Event name</h2>
+                        <p>Description goes here.</p>
+                    </div>
                 </div>
-                <button id="sideMenu_showAgenda">Show Today's Agenda</button>
+                <h2 class="menu_right_label">Active Quest</h2>
+                <div id="menu_right_active_quest">
+                    <h2>Quest Name</h2>
+                    <p>Quest description and clues are here.</p>
+                </div>
+                <button>View Full Day</button>
             </div>
 
             <section id="day_view_full" style="display: none">

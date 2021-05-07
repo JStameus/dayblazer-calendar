@@ -196,51 +196,108 @@ header {
   color: #E9EFE1;
 }
 
-#menu_right {
+#menu_right_toggle_button {
+  z-index: 4;
   position: fixed;
-  z-index: 3;
   right: 0;
-  margin: 1rem;
-  padding: 0.3rem;
-  width: 20rem;
-  background-color: #434B52;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px rgba(31, 33, 33, 0.92);
+  top: 0;
+  margin: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  box-shadow: 2px 2px 6px rgba(31, 33, 33, 0.65);
 }
-#menu_right h1, #menu_right h2, #menu_right h3 {
+
+#menu_right {
+  z-index: 3;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 0.3rem;
+  position: fixed;
+  top: 0;
+  transition: 0.18s;
+  display: flex;
+  flex-direction: column;
+  background-color: #535B61;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgba(31, 33, 33, 0.65);
+}
+#menu_right.open {
+  width: 20rem;
+  transition: 0.18s;
+}
+#menu_right.closed {
+  width: 0;
+  padding: 0;
+  transition: 0.18s;
+}
+#menu_right * {
+  overflow: hidden;
+  white-space: nowrap;
+}
+#menu_right .menu_right_label {
   color: #E9EFE1;
   font-family: "Girassol";
   text-align: center;
 }
-
-#menu_right_toggleButton {
-  position: absolute;
-  right: 0.2rem;
-  top: 0.2rem;
-  height: 2rem;
-  width: 2rem;
+#menu_right #menu_right_header h1, #menu_right #menu_right_header h2, #menu_right #menu_right_header h3 {
+  color: #E9EFE1;
   text-align: center;
-  padding: 0;
+  font-family: "Girassol";
 }
-
-#sideMenu_nextTask, #sideMenu_activeQuest {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
+#menu_right #menu_right_next_event {
   background-color: #33383D;
-  padding: 0.3rem;
   border-radius: 5px;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem 0;
 }
-#sideMenu_nextTask #nextTask_info, #sideMenu_activeQuest #nextTask_info {
-  overflow-x: hidden;
+#menu_right #menu_right_next_event #menu_right_next_event_header {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
 }
-#sideMenu_nextTask h3, #sideMenu_activeQuest h3 {
-  text-align: left;
+#menu_right #menu_right_next_event #menu_right_next_event_header h3 {
+  color: #E9EFE1;
   font-family: "Oswald";
 }
-
-#sideMenu_showAgenda {
-  width: 100%;
-  margin-top: 0.4rem;
+#menu_right #menu_right_next_event #menu_right_next_event_header #next_event_header_time {
+  text-align: left;
+}
+#menu_right #menu_right_next_event #menu_right_next_event_header #next_event_header_xp {
+  text-align: center;
+}
+#menu_right #menu_right_next_event #menu_right_next_event_header #next_event_header_xp span {
+  color: #F8ECBC;
+}
+#menu_right #menu_right_next_event hr {
+  border: 1px solid #434B52;
+}
+#menu_right #menu_right_next_event #menu_right_next_event_body h2, #menu_right #menu_right_next_event #menu_right_next_event_body p {
+  color: #E9EFE1;
+}
+#menu_right #menu_right_next_event #menu_right_next_event_body h2 {
+  font-family: "Oswald";
+}
+#menu_right #menu_right_next_event #menu_right_next_event_body p {
+  font-family: "Ubuntu Condensed";
+}
+#menu_right #menu_right_active_quest {
+  background-color: #33383D;
+  border-radius: 5px;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem 0;
+}
+#menu_right #menu_right_active_quest h2, #menu_right #menu_right_active_quest p {
+  color: #E9EFE1;
+}
+#menu_right #menu_right_active_quest h2 {
+  font-family: "Oswald";
+}
+#menu_right #menu_right_active_quest p {
+  font-family: "Ubuntu Condensed";
 }
 
 button {

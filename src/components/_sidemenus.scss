@@ -1,46 +1,95 @@
-#menu_right {
+#menu_right_toggle_button {
+    z-index: 4;
     position: fixed;
-    z-index: 3;
     right: 0;
-    margin: 1rem;
+    top: 0;
+    margin: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    @include apply-box-shadow($bg-color-black, $opacity-medium, 6px);
+}
+
+#menu_right {
+    z-index: 3;
+    position: fixed;
+    right: 0;
+    top: 0;
     padding: 0.3rem;
-    width: 20rem;
-    background-color: $bg-color-normal;
-    border-radius: $border-radius-large;
-    @include apply-box-shadow($bg-color-black, $opacity-high, 6px);
-    h1, h2, h3 {
+    @include side-menu(0, 20rem, 0.18s);
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $bg-color-lighter;    
+    border-radius: $border-radius-small;
+    @include apply-box-shadow($bg-color-black, $opacity-medium, 6px);
+
+    .menu_right_label {
         color: $fg-color-normal;
         font-family: $title-font;
         text-align: center;
     }
-}
 
-#menu_right_toggleButton {
-    position: absolute;
-    right: 0.2rem;
-    top: 0.2rem;
-    height: 2rem;
-    width: 2rem;
-    text-align: center;
-    padding: 0;
-}
-
-#sideMenu_nextTask, #sideMenu_activeQuest {
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    background-color: $bg-color-darker;
-    padding: 0.3rem;
-    border-radius: $border-radius-small;
-    #nextTask_info {
-        overflow-x: hidden;
+    #menu_right_header {
+        h1, h2, h3 {
+            color: $fg-color-normal;
+            text-align: center;
+            font-family: $title-font;
+        }
     }
-    h3 {
-        text-align: left;
-        font-family: $ui-font;
-    }
-}
 
-#sideMenu_showAgenda {
-    width: 100%;
-    margin-top: 0.4rem;
+    #menu_right_next_event {
+        @include info-box(0.3rem);
+        display: flex;
+        flex-direction: column;
+        margin: 0.2rem 0;
+        #menu_right_next_event_header {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            h3 {
+                color: $fg-color-normal;
+                font-family: $ui-font;
+            }
+            #next_event_header_time {
+                text-align: left; 
+            }
+            #next_event_header_xp {
+                text-align: center;
+                span {
+                    color: $accent-color-secondary;
+                }
+            }
+        }
+        hr {
+            border: 1px solid $bg-color-normal;
+        }
+        #menu_right_next_event_body {
+            h2, p {
+                color: $fg-color-normal;
+            }
+            h2 {
+                font-family: $ui-font;
+            }
+            p {
+                font-family: $content-font;
+            }
+        }
+    }
+
+    #menu_right_active_quest {
+        @include info-box(0.3rem);
+        display: flex;
+        flex-direction: column;
+        margin: 0.2rem 0;
+        h2, p {
+            color: $fg-color-normal;
+        }
+        h2 {
+            font-family: $ui-font;
+        }
+        p {
+            font-family: $content-font;
+        }
+    }
+
 }

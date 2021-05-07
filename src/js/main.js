@@ -76,31 +76,19 @@ const dayView = document.querySelector("#day_view_full");
 const screenBlocker = document.querySelector("#screen_blocker");
 const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const summaryContainer = document.querySelector("#day_view_full_summary");
-
-// === RIGHT SIDE MENU ===
-const rightMenuContent = document.querySelector("#menu_right_content");
-
-// == BUTTONS ==
-// === DAY VIEW ===
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
 });
 
 // === RIGHT SIDE MENU ===
-const showTodayButton = document.querySelector("#sideMenu_showAgenda");
-showTodayButton.addEventListener("click", () => {
-    toggleElementVisibility(dayView, screenBlocker, 210, true);
-});
-
-const rightToggleButton = document.querySelector("#menu_right_toggleButton");
+const rightMenu = document.querySelector("#menu_right");
+const rightToggleButton = document.querySelector("#menu_right_toggle_button");
 rightToggleButton.addEventListener("click", () => {
-    if(rightMenuContent.style.display === "none") {
-        rightMenuContent.style.display = "block";
-        rightToggleButton.textContent = "-";
+    if (rightMenu.className === "open") {
+        rightMenu.className = "closed";
     } else {
-        rightMenuContent.style.display = "none";
-        rightToggleButton.textContent = "+";
+        rightMenu.className = "open";
     }
 });
 
