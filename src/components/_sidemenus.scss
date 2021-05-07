@@ -15,7 +15,7 @@
     right: 0;
     top: 0;
     padding: 0.3rem;
-    @include side-menu(0, 20rem, 0.25s);
+    @include side-menu(0, 20rem, 0.18s);
 
     display: flex;
     flex-direction: column;
@@ -24,9 +24,6 @@
     border-radius: $border-radius-small;
     @include apply-box-shadow($bg-color-black, $opacity-medium, 6px);
 
-    * {
-        white-space: nowrap;
-    }
     .menu_right_label {
         color: $fg-color-normal;
         font-family: $title-font;
