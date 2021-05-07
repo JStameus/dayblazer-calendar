@@ -18,3 +18,21 @@ $calendar-row-spacing: 1.5rem;
     height: $height;
     transform: translateY($yOffset);
 }
+
+@mixin side-menu($yOffset, $maxWidth, $transition) {
+    position: fixed; 
+    top: $yOffset;
+    transition: $transition;
+    &.open {
+        width: $maxWidth;
+        transition: $transition;
+    }
+    &.closed {
+        width: 0;
+        padding: 0;
+        transition: $transition;
+    }
+    * {
+        overflow: hidden;
+    }
+}
