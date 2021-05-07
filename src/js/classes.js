@@ -1,7 +1,11 @@
 class CalendarDay {
     constructor(dateString) {
         this.date = dateString;
-        this.eventList = this.refreshEventList();
+        this.refreshEventList();
+    }
+    // TODO: Maybe this class should render its own event previews?
+    renderEventPreview(container) {
+
     }
     renderEventList(container) {
         // Update the relevant elements of the dayView to show the info
@@ -51,10 +55,15 @@ class CalendarDay {
         `;
         container.appendChild(summaryDiv);
     }
+    renderDashBoard() {
+
+    }
     // Goes through the global list of events and rebuilds this CalendarDay's
     // event list with any events that match its date.
     refreshEventList() {
-        const matchingEvents = globalEventList.filter((obj) => {
+        // TODO: Don't rely on a global variable. Find where this can be passed
+        // as an argument instead.
+        let matchingEvents = globalEventList.filter((obj) => {
             // TODO: Is this a proper usage of filter? It works but it feels
             // dirty somehow.
             if(obj.date.toString().trim() === this.date.toString().trim()) {
@@ -64,7 +73,18 @@ class CalendarDay {
                 return false;
             }
         });
-        return matchingEvents;
+        const sortedEvents = matchingEvents.sort((a, b) => {
+            let timeA = parseInt(a.startTime.slice(0,2));
+            let timeB = parseInt(b.startTime.slice(0,2));
+            if(timeA < timeB) {
+                return -1;
+            } else if (timeA > timeB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        this.eventList = sortedEvents;
     }
     calculateSummary() {
         let earnedXP = 0;
