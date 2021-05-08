@@ -2,8 +2,7 @@
                              = CALENDAR MANAGER =
     The calendar manager is responsible for handling all information related to
     dates, such as the current date, which weekday is the first day of the month
-    etc, as well as dynamically creating the elements representing the days and
-    associated events. 
+    etc, as well as dynamically creating the elements representing the days.
 */
 
 /**
@@ -193,49 +192,6 @@ function createCalendarGrid(selectedDate, container, gridItemAmount) {
 }
 
 /**
- * Creates and returns a div representing a CalendarEvent, representing its
- * name, setting a class appropriate to its type, and adding its id value to the
- * div's id for easy identification in the DOM.
- * @param {CalendarEvent} event The event data to use for creating the div.
- * @return A div element with two classes appropriate to its name and type, and
- * an id corresponding to the event's id.
-*/
-function createEventPreviewDiv(event) {
-    const nameLabel = document.createElement("p");
-    nameLabel.textContent = event.name;
-    nameLabel.classList.add("event_preview_name");
-    nameLabel.classList.add(`event_type_${event.type}`);
-
-    const newDiv = document.createElement("div");
-    newDiv.id = `event_${event.id}`;
-    newDiv.classList.add("event_preview");
-    newDiv.appendChild(nameLabel);
-
-    return newDiv;
-}
-
-/**
- * Loops through the specified container element's children and check the
- * specified event list for any events that belong to that specific day, and
- * creates and appends them if a match is found.
- * @param {Array} eventList The array containing the CalendarEvent objects.
- * @param {Element} container The DOM element containing divs representing days
- * on the calendar. Requires the container's direct children to have a "date"
- * attribute in their data set that matches the format of the CalendarEvents.
- */
-function initEvents(eventList, container) {
-    const nodeList = container.children;
-    for(let i = 0; i < nodeList.length; i++) {
-        const currentDayDiv = nodeList[i];
-        eventList.forEach(obj => {
-           if(obj.date === currentDayDiv.dataset.date) {
-                currentDayDiv.appendChild(createEventPreviewDiv(obj));
-            }
-        });
-    }
-}
-
-/**
  * Initializes an interactable calendar with the specified date as its starting
  * point, and adds an event listener to the container that holds the DOM
  * elements representing the calendar, listening for clicks.
@@ -246,7 +202,7 @@ function initEvents(eventList, container) {
  * which will be filled on initialization.
  * @param {Element} container The container for the interactive calendar.
 */
-function initCalendar(selectedDate, eventList, container) {
+function initCalendar(selectedDate, container, dayList) {
     const firstDayOfSelectedMonth = getFirstWeekDayInMonth(selectedDate);
     // If index is 5(Saturday) or more, 35 grid items is not enough. 
     let maxGridItems = 0;
@@ -256,5 +212,7 @@ function initCalendar(selectedDate, eventList, container) {
         maxGridItems = 35;
     }
     createCalendarGrid(selectedDate, container, maxGridItems);
-    initEvents(eventList, container);
+    dayList.forEach(dayObj => {
+        dayObj.renderEventPreview(container);
+    });
 }

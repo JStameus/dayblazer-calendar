@@ -101,7 +101,7 @@ function initApp() {
                 globalEventList = createEventList(data);
                 globalCalendarDayList = createCalendarDayData(currentDate);
             }
-            initCalendar(currentDate, globalEventList, dayGrid);
+            initCalendar(currentDate, dayGrid, globalCalendarDayList);
         })
         .catch(err => {
             console.log(`ERROR: ${err}`);
