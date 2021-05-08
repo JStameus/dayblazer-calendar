@@ -30,5 +30,6 @@
     #day_view_full_schedule {
         @include info-box(0.2rem);
         overflow-y: scroll;
+        height: 38rem;
     }
 }
