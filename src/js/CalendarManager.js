@@ -191,10 +191,76 @@ function createCalendarGrid(selectedDate, container, gridItemAmount) {
     container.children[selectedDate.getDate() + firstDay.index - 1].classList.add("today");
 }
 
+// TODO: Does this belong here? It could belong to the CalendarDay class, but
+// since rendering time info will pretty much always be dependent on the actual
+// current day to be useful, it makes more sense to not be tied to instances of
+// CalendarDay.
+function renderDateInfo(date) {
+    // TODO: Implement getting and showing the weekday
+    //const weekdayEl = document.querySelector("#timeinfo_weekday");
+    const dateEl = document.querySelector("#timeinfo_date");
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    let monthString = "";
+    switch (month) {
+        case 1:
+            monthString = "January";
+            break;
+        case 2:
+            monthString = "February";
+            break;
+        case 3:
+            monthString = "March";
+            break;
+        case 4:
+            monthString = "April";
+            break;
+        case 5:
+            monthString = "May";
+            break;
+        case 6:
+            monthString = "June";
+            break;
+        case 7:
+            monthString = "July";
+            break;
+        case 8:
+            monthString = "August";
+            break;
+        case 9:
+            monthString = "September";
+            break;
+        case 10:
+            monthString = "October";
+            break;
+        case 11:
+            monthString = "November";
+            break;
+        case 12:
+            monthString = "December";
+            break;
+        default:
+            monthString = "UNDEFINED";
+            break;
+    }
+    const year = date.getFullYear();
+    dateEl.textContent = `${monthString} ${day}, ${year}`;
+}
+
+function renderTimeInfo(date, update = true) {
+    const timeEL = document.querySelector("#timeinfo_time");
+    timeEL.textContent = `${date.getHours()}:${date.getMinutes()}`;
+    if(update) {
+        setInterval(() => {
+            timeEL.textContent = `${date.getHours()}:${date.getMinutes()}`;
+        }, 30000);
+    }
+}
+
 /**
  * Initializes an interactable calendar with the specified date as its starting
- * point, and adds an event listener to the container that holds the DOM
- * elements representing the calendar, listening for clicks.
+ * point.
  * @param {Date} selectedDate The date to be used as the calendar's starting point.
  * @param {Array} eventList The list of CalendarEvents to use to populate the
  * calendar view.
@@ -215,4 +281,13 @@ function initCalendar(selectedDate, container, dayList) {
     dayList.forEach(dayObj => {
         dayObj.renderEventPreview(container);
     });
+
+    // TODO: This make the initCalendar function assume that the selected date
+    // starting point is the current time for this renderDashBoard call to be
+    // relevant and/or useful. Maybe it would be best to not try to account for
+    // the user wanting to have it any other way? 
+    const currentDay = selectedDate.getDate() - 1;
+    dayList[currentDay].renderDashBoard();
+    renderDateInfo(selectedDate);
+    renderTimeInfo(selectedDate);
 }

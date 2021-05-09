@@ -81,8 +81,37 @@ class CalendarDay {
         `;
         container.appendChild(summaryDiv);
     }
+    // TODO: Can I make this less dependent on the class names matching/make it
+    // more reusable? Do I need to?
     renderDashBoard() {
+        let nextEvent;
+        const nextEventTimeEl = document.querySelector("#next_event_header_time");
+        const nextEventXPEl = document.querySelector("#next_event_header_xp");
+        const nextEventNameEl = document.querySelector("#next_event_body_name");
+        const nextEventDescEl = document.querySelector("#next_event_body_description");
+        for(let i = 0; i < this.eventList.length; i++) {
+            let event = this.eventList[i];
+            if(event.type != "reminder" && !event.isFinished) {
+                nextEvent = event;
+                break;
+            }
+        }
+        
+        if(nextEvent) {
+            nextEventTimeEl.textContent = nextEvent.startTime;
+            // TODO: Using innerHTML so that the span doesn't get overwritten. Is
+            // there a better way to do this?
+            nextEventXPEl.innerHTML = (nextEvent.type === "task") ? `<span>${nextEvent.xpValue}</span> XP` : ``;
 
+            nextEventNameEl.textContent = nextEvent.name;
+            nextEventDescEl.textContent = nextEvent.description;
+        } else {
+            nextEventTimeEl.textContent = `--:--`
+            nextEventXPEl.textContent = ``;
+
+            nextEventNameEl.textContent = `None`;
+            nextEventDescEl.textContent = `You have no more events scheduled for today.`;
+        }
     }
     // Goes through the global list of events and rebuilds this CalendarDay's
     // event list with any events that match its date.
@@ -152,33 +181,6 @@ class CalendarDay {
                 finishedTasks++;
             }
         }
-        //this.eventList.forEach(obj => {
-        //    if(obj.type === "event") {
-        //        totalEvents++;
-        //        continue;
-        //    }
-        //    let XP = 0;
-        //    switch (obj.difficulty) {
-        //        case 1:
-        //            XP = 150;
-        //            totalXP += XP;
-        //            break;
-        //        case 2: 
-        //            XP = 400;
-        //            totalXP += XP;
-        //            break;
-        //        case 3:
-        //            XP = 750;
-        //            totalXP += XP;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    if(obj.finished === true) {
-        //        earnedXP += XP;
-        //        finishedTasks++;
-        //    }
-        //});
         return {earnedXP: earnedXP, totalXP: totalXP, finishedTasks: finishedTasks, totalTasks: totalTasks, totalEvents: totalEvents};
     }
 }
