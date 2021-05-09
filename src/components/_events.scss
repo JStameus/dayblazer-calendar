@@ -33,6 +33,7 @@
     margin: 0.3rem;
     @include apply-box-shadow($bg-color-black, $opacity-medium, 0.4rem);
 
+    // == HEADER ==
     .schedule_event_header {
         margin: 0.2rem 0;
         display: grid;
@@ -54,6 +55,7 @@
         }
     }
 
+    // == MAIN ==
     .schedule_event_main {
         margin: 0.2rem 0;
         display: grid;
@@ -85,9 +87,33 @@
             }
         }
     }
-    p {
-        font-family: $content-font;
-        color: $fg-color-normal;
+
+    // == FOOTER ==
+    .schedule_event_footer {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        .event_footer_description {
+            font-family: $content-font;
+            color: $fg-color-normal;
+        }
+        .event_footer_controlpanel {
+           display: flex;
+           justify-content: space-evenly;
+           div {
+               border: 1px solid rgba($fg-color-normal, $opacity-low);
+               border-radius: $border-radius-small;
+               width: 2rem;
+               height: 2rem;
+               padding: 0;
+               color: $fg-color-normal;
+               i {
+                position:relative;
+                top:50%;
+                left:50%;
+                transform: translate(-50%,-50%) scale(1.5);
+               }
+           }
+        }
     }
     &.event_type_event {
         background-color: $event-color-event;

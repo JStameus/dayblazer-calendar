@@ -34,21 +34,21 @@ class CalendarDay {
         });
     }
     renderEventList(container) {
-        // Update the relevant elements of the dayView to show the info
-        // contained in this CalendarDay
         // TODO: For this implementation to be ideal, all data sent between
         // client and server has to be strictly validated and secured.
         container.innerHTML = ``;
         this.eventList.forEach(obj => {
             // If the event is a task, it should have a checkbox and XP display
             let xpDisplay = "";
+            let difficultyDisplay = "";
             let checkBox = "";
             let checkBoxValue = ""; 
             if(obj.type === "task") {
                 xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
                 checkBoxValue = obj.isFinished ? "checked" : "unchecked";
-                //checkBox = `<input type="checkbox" value="${checkBoxValue}" class="event_main_checkbox" id="event_checkbox_${obj.id}">`;
-                checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentEvent=${obj.id}></div>`;
+                checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentevent=${obj.id}></div>`;
+                difficultyDisplay = `<h3 class="event_details_difficulty">Difficulty: ${obj.difficulty}</h3>`;
+
             }
             const eventDiv = document.createElement("div");
             eventDiv.classList.add(`schedule_event`);
@@ -64,7 +64,20 @@ class CalendarDay {
                     ${checkBox}
                 </div>
                 <hr>
-                <p class="schedule_event_description">${obj.description}</p>
+                <div class="schedule_event_footer">
+                    <p class="event_footer_description">${obj.description}</p>
+                    <div class="event_footer_controlpanel">
+                        <div class="event_footer_controlpanel_delete"><i class="fa fa-trash"></i></div>
+                        <div class="event_footer_controlpanel_edit"><i class="fa fa-edit"></i></div>
+                        <div class="event_footer_controlpanel_expand"><i class="fa fa-list"></i></div>
+                    </div>
+                </div>
+                <div class="schedule_event_details" style="display: none">
+                    ${difficultyDisplay}
+                    <h3 class="event_details_start">Start: ${obj.startTime}</h3>    
+                    <h3 class="event_details_start">End: ${obj.endTime}</h3>    
+                    <h3 class="event_details_location">Location: N/A</h3>    
+                </div>
             `;
             container.appendChild(eventDiv);
         });
