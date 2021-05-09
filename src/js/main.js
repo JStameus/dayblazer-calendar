@@ -18,9 +18,10 @@ const getRequestOptions = {
 const BASEURL = "http://localhost:3000/api";
 const QUERY = `u=jstameus`;
 
-// == FETCHED DATA ==
+// == GLOBALLY AVAILABLE DATA/STATE INFO ==
 var globalCalendarDayList = [];
 var globalEventList = [];
+var selectedCalendarDay = null;
 
 // == USER XP ==
 // TODO: Should probably not be stored locally. Only modify via API calls?
@@ -59,6 +60,7 @@ dayGrid.addEventListener("click", (e) => {
                     return true;
                 }
             });
+            selectedCalendarDay = selectedDay;
             selectedDay.renderEventList(scheduleContainer);
             selectedDay.renderSummary(summaryContainer);
             toggleElementVisibility(dayView, screenBlocker, 210);
@@ -77,8 +79,33 @@ const screenBlocker = document.querySelector("#screen_blocker");
 const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const summaryContainer = document.querySelector("#day_view_full_summary");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
+scheduleContainer.addEventListener("click", (e) => {
+    let checkbox = null;
+    if(e.target.classList.contains("event_main_checkbox")) {
+        checkbox = e.target;
+        // Find out which CalendarEvent this checkbox element belongs to.
+        const parentEvent = selectedCalendarDay.eventList.find(obj => {
+            return obj.id === checkbox.dataset.parentevent;
+        });
+        
+        if(checkbox.classList.contains("unchecked")) {
+            // Set the CSS class to "checked"
+            checkbox.classList.remove("unchecked");
+            checkbox.classList.add("checked");
+            parentEvent.checked = true;
+        } else if(checkbox.classList.contains("checked")) {
+            // Set the CSS class to "unchecked"
+            checkbox.classList.remove("checked");
+            checkbox.classList.add("unchecked");
+            parentEvent.checked = false;
+        } else {
+            console.warn(`${checkbox.id} has no 'checked/unchecked' class!`);
+        }
+    } 
+});
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
+    selectedCalendarDay = null;
 });
 
 // === RIGHT SIDE MENU ===

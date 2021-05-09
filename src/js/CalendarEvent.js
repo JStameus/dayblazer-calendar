@@ -10,6 +10,7 @@ class CalendarEvent {
         this.difficulty = eventData.difficulty;
         this.xpValue = eventData.xpValue;
         this.finished = eventData.finished;
+        this.checked = false;
     }
     updateEventInfo(eventData) {
         // TODO: Should an event be able to change its own ID? Probably not. 
