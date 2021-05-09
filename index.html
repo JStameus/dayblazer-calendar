@@ -14,9 +14,9 @@
             <button id="menu_right_toggle_button">=</button>
             <div id="menu_right" class="open">
                 <div id="menu_right_header">
-                    <h3>Weekday</h3>
-                    <h2>DD May, YYYY</h2>
-                    <h1>HH:MM</h1>
+                    <h3 id="timeinfo_weekday">Weekday</h3>
+                    <h2 id="timeinfo_date">DD May, YYYY</h2>
+                    <h1 id="timeinfo_time">HH:MM</h1>
                     <hr>
                 </div> 
                 <h2 class="menu_right_label">Next Event</h2>
@@ -27,8 +27,8 @@
                     </div>
                     <hr>
                     <div id="menu_right_next_event_body">
-                        <h2>Event name</h2>
-                        <p>Description goes here.</p>
+                        <h2 id="next_event_body_name">Event name</h2>
+                        <p id="next_event_body_description">Description goes here.</p>
                     </div>
                 </div>
                 <h2 class="menu_right_label">Active Quest</h2>
@@ -78,7 +78,8 @@
             </div>
             <h3 id="footer_xpDisplay">300/1000</h3>
         </footer>
-        <script src="src/js/classes.js"></script>
+        <script src="src/js/CalendarDay.js"></script>
+        <script src="src/js/CalendarEvent.js"></script>
         <script src="src/js/UIManager.js"></script>
         <script src="src/js/InputManager.js"></script>
         <script src="src/js/CalendarManager.js"></script>

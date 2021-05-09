@@ -3,9 +3,35 @@ class CalendarDay {
         this.date = dateString;
         this.refreshEventList();
     }
-    // TODO: Maybe this class should render its own event previews?
     renderEventPreview(container) {
+        let dayDiv = null;
+        const nodeList = container.children;
 
+        for(let i = 0; i < nodeList.length; i++) {
+            if(nodeList[i].dataset.date === this.date) {
+                dayDiv = nodeList[i];
+            }
+        }
+        // If no matching div was found, dayDiv will still be null, and the
+        // function will exit prematurely.
+        if(dayDiv === null) {
+            console.warn(`No applicable div was found for CalendarDay ${this.date}.`);
+            return;
+        }
+
+        this.eventList.forEach(obj => {
+            const nameLabel = document.createElement("p");
+            nameLabel.textContent = obj.name;
+            nameLabel.classList.add("event_preview_name");
+            nameLabel.classList.add(`event_type_${obj.type}`);
+
+            const newDiv = document.createElement("div");
+            newDiv.id = `event_${obj.id}`;
+            newDiv.classList.add("event_preview");
+            newDiv.appendChild(nameLabel);
+
+            dayDiv.appendChild(newDiv);
+        });
     }
     renderEventList(container) {
         // Update the relevant elements of the dayView to show the info
@@ -55,8 +81,37 @@ class CalendarDay {
         `;
         container.appendChild(summaryDiv);
     }
+    // TODO: Can I make this less dependent on the class names matching/make it
+    // more reusable? Do I need to?
     renderDashBoard() {
+        let nextEvent;
+        const nextEventTimeEl = document.querySelector("#next_event_header_time");
+        const nextEventXPEl = document.querySelector("#next_event_header_xp");
+        const nextEventNameEl = document.querySelector("#next_event_body_name");
+        const nextEventDescEl = document.querySelector("#next_event_body_description");
+        for(let i = 0; i < this.eventList.length; i++) {
+            let event = this.eventList[i];
+            if(event.type != "reminder" && !event.isFinished) {
+                nextEvent = event;
+                break;
+            }
+        }
+        
+        if(nextEvent) {
+            nextEventTimeEl.textContent = nextEvent.startTime;
+            // TODO: Using innerHTML so that the span doesn't get overwritten. Is
+            // there a better way to do this?
+            nextEventXPEl.innerHTML = (nextEvent.type === "task") ? `<span>${nextEvent.xpValue}</span> XP` : ``;
 
+            nextEventNameEl.textContent = nextEvent.name;
+            nextEventDescEl.textContent = nextEvent.description;
+        } else {
+            nextEventTimeEl.textContent = `--:--`
+            nextEventXPEl.textContent = ``;
+
+            nextEventNameEl.textContent = `None`;
+            nextEventDescEl.textContent = `You have no more events scheduled for today.`;
+        }
     }
     // Goes through the global list of events and rebuilds this CalendarDay's
     // event list with any events that match its date.
@@ -88,22 +143,35 @@ class CalendarDay {
     }
     calculateSummary() {
         let earnedXP = 0;
-        let possibleXP = 0;
+        let totalXP = 0;
         let finishedTasks = 0;
-        this.eventList.forEach(obj => {
+        let totalTasks = 0;
+        let totalEvents = 0;
+        for(let i = 0; i < this.eventList.length; i++) {
+            const obj = this.eventList[i];
+            // Before adding XP, handle cases for events and reminders
+            if(obj.type === "event") {
+                totalEvents++;
+                continue;
+            } else if(obj.type === "reminder") {
+                continue;
+            } else if(obj.type === "task") {
+                totalTasks++;
+            }
+
             let XP = 0;
             switch (obj.difficulty) {
                 case 1:
                     XP = 150;
-                    possibleXP += XP;
+                    totalXP += XP;
                     break;
                 case 2: 
                     XP = 400;
-                    possibleXP += XP;
+                    totalXP += XP;
                     break;
                 case 3:
                     XP = 750;
-                    possibleXP += XP;
+                    totalXP += XP;
                     break;
                 default:
                     break;
@@ -112,36 +180,7 @@ class CalendarDay {
                 earnedXP += XP;
                 finishedTasks++;
             }
-        });
-        return {earnedXP: earnedXP, totalXP: possibleXP, finishedTasks: finishedTasks, totalTasks: this.eventList.length};
-    }
-}
-
-class CalendarEvent {
-    constructor(eventData) {
-        this.id = eventData.id;
-        this.name = eventData.name;
-        this.description = eventData.description;
-        this.date = eventData.date;
-        this.startTime = eventData.startTime;
-        this.endTime = eventData.endTime;
-        this.type = eventData.type;
-        this.difficulty = eventData.difficulty;
-        this.xpValue = eventData.xpValue;
-        this.finished = eventData.finished;
-    }
-    updateEventInfo(eventData) {
-        // TODO: Should an event be able to change its own ID? Probably not. 
-        // I'm leaving it out of this update function for now.
-        this.name = eventData.name;
-        this.description = eventData.description;
-        this.date = eventData.date;
-        this.startTime = eventData.startTime;
-        this.endTime = eventData.endTime;
-        this.type = eventData.type;
-        this.finished = eventData.finished;
-        this.difficulty = eventData.difficulty;
-        this.xpValue = eventData.xpValue;
-        console.log(`Updated CalendarEvent: ${this.id}`);
+        }
+        return {earnedXP: earnedXP, totalXP: totalXP, finishedTasks: finishedTasks, totalTasks: totalTasks, totalEvents: totalEvents};
     }
 }

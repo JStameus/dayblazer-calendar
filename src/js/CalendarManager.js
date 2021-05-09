@@ -2,8 +2,7 @@
                              = CALENDAR MANAGER =
     The calendar manager is responsible for handling all information related to
     dates, such as the current date, which weekday is the first day of the month
-    etc, as well as dynamically creating the elements representing the days and
-    associated events. 
+    etc, as well as dynamically creating the elements representing the days.
 */
 
 /**
@@ -192,53 +191,94 @@ function createCalendarGrid(selectedDate, container, gridItemAmount) {
     container.children[selectedDate.getDate() + firstDay.index - 1].classList.add("today");
 }
 
-/**
- * Creates and returns a div representing a CalendarEvent, representing its
- * name, setting a class appropriate to its type, and adding its id value to the
- * div's id for easy identification in the DOM.
- * @param {CalendarEvent} event The event data to use for creating the div.
- * @return A div element with two classes appropriate to its name and type, and
- * an id corresponding to the event's id.
-*/
-function createEventPreviewDiv(event) {
-    const nameLabel = document.createElement("p");
-    nameLabel.textContent = event.name;
-    nameLabel.classList.add("event_preview_name");
-    nameLabel.classList.add(`event_type_${event.type}`);
+// TODO: Does this belong here? It could belong to the CalendarDay class, but
+// since rendering time info will pretty much always be dependent on the actual
+// current day to be useful, it makes more sense to not be tied to instances of
+// CalendarDay.
+function renderDateInfo(date) {
+    // TODO: Implement getting and showing the weekday
+    //const weekdayEl = document.querySelector("#timeinfo_weekday");
+    const dateEl = document.querySelector("#timeinfo_date");
 
-    const newDiv = document.createElement("div");
-    newDiv.id = `event_${event.id}`;
-    newDiv.classList.add("event_preview");
-    newDiv.appendChild(nameLabel);
-
-    return newDiv;
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    let monthString = "";
+    switch (month) {
+        case 1:
+            monthString = "January";
+            break;
+        case 2:
+            monthString = "February";
+            break;
+        case 3:
+            monthString = "March";
+            break;
+        case 4:
+            monthString = "April";
+            break;
+        case 5:
+            monthString = "May";
+            break;
+        case 6:
+            monthString = "June";
+            break;
+        case 7:
+            monthString = "July";
+            break;
+        case 8:
+            monthString = "August";
+            break;
+        case 9:
+            monthString = "September";
+            break;
+        case 10:
+            monthString = "October";
+            break;
+        case 11:
+            monthString = "November";
+            break;
+        case 12:
+            monthString = "December";
+            break;
+        default:
+            monthString = "UNDEFINED";
+            break;
+    }
+    const year = date.getFullYear();
+    dateEl.textContent = `${monthString} ${day}, ${year}`;
 }
 
-/**
- * Loops through the specified container element's children and check the
- * specified event list for any events that belong to that specific day, and
- * creates and appends them if a match is found.
- * @param {Array} eventList The array containing the CalendarEvent objects.
- * @param {Element} container The DOM element containing divs representing days
- * on the calendar. Requires the container's direct children to have a "date"
- * attribute in their data set that matches the format of the CalendarEvents.
- */
-function initEvents(eventList, container) {
-    const nodeList = container.children;
-    for(let i = 0; i < nodeList.length; i++) {
-        const currentDayDiv = nodeList[i];
-        eventList.forEach(obj => {
-           if(obj.date === currentDayDiv.dataset.date) {
-                currentDayDiv.appendChild(createEventPreviewDiv(obj));
+function renderTimeInfo(update = true) {
+    let now = new Date();
+    let hour = now.getHours();
+    if(hour.toString().length === 1) {
+        hour = "0" + hour;
+    }
+    let minute = now.getMinutes();
+    if(minute.toString().length === 1) {
+        minute = "0" + minute;
+    }
+    const timeEL = document.querySelector("#timeinfo_time");
+    timeEL.textContent = `${hour}:${minute}`;
+    if(update) {
+        setInterval(() => {
+            now = new Date();
+            hour = now.getHours();
+            if(hour.toString().length === 1) {
+                hour = "0" + hour;
             }
-        });
+            minute = now.getMinutes();
+            if(minute.toString().length === 1) {
+                minute = "0" + minute;
+            }
+            timeEL.textContent = `${hour}:${minute}`;
+        }, 3000);
     }
 }
 
 /**
  * Initializes an interactable calendar with the specified date as its starting
- * point, and adds an event listener to the container that holds the DOM
- * elements representing the calendar, listening for clicks.
+ * point.
  * @param {Date} selectedDate The date to be used as the calendar's starting point.
  * @param {Array} eventList The list of CalendarEvents to use to populate the
  * calendar view.
@@ -246,7 +286,7 @@ function initEvents(eventList, container) {
  * which will be filled on initialization.
  * @param {Element} container The container for the interactive calendar.
 */
-function initCalendar(selectedDate, eventList, container) {
+function initCalendar(selectedDate, container, dayList) {
     const firstDayOfSelectedMonth = getFirstWeekDayInMonth(selectedDate);
     // If index is 5(Saturday) or more, 35 grid items is not enough. 
     let maxGridItems = 0;
@@ -256,5 +296,16 @@ function initCalendar(selectedDate, eventList, container) {
         maxGridItems = 35;
     }
     createCalendarGrid(selectedDate, container, maxGridItems);
-    initEvents(eventList, container);
+    dayList.forEach(dayObj => {
+        dayObj.renderEventPreview(container);
+    });
+
+    // TODO: This make the initCalendar function assume that the selected date
+    // starting point is the current time for this renderDashBoard call to be
+    // relevant and/or useful. Maybe it would be best to not try to account for
+    // the user wanting to have it any other way? 
+    const currentDay = selectedDate.getDate() - 1;
+    dayList[currentDay].renderDashBoard();
+    renderDateInfo(selectedDate);
+    renderTimeInfo(selectedDate);
 }
