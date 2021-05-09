@@ -262,7 +262,6 @@ function renderTimeInfo(update = true) {
     timeEL.textContent = `${hour}:${minute}`;
     if(update) {
         setInterval(() => {
-            console.log("Updating time info");
             now = new Date();
             hour = now.getHours();
             if(hour.toString().length === 1) {
