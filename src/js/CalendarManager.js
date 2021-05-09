@@ -248,13 +248,32 @@ function renderDateInfo(date) {
     dateEl.textContent = `${monthString} ${day}, ${year}`;
 }
 
-function renderTimeInfo(date, update = true) {
+function renderTimeInfo(update = true) {
+    let now = new Date();
+    let hour = now.getHours();
+    if(hour.toString().length === 1) {
+        hour = "0" + hour;
+    }
+    let minute = now.getMinutes();
+    if(minute.toString().length === 1) {
+        minute = "0" + minute;
+    }
     const timeEL = document.querySelector("#timeinfo_time");
-    timeEL.textContent = `${date.getHours()}:${date.getMinutes()}`;
+    timeEL.textContent = `${hour}:${minute}`;
     if(update) {
         setInterval(() => {
-            timeEL.textContent = `${date.getHours()}:${date.getMinutes()}`;
-        }, 30000);
+            console.log("Updating time info");
+            now = new Date();
+            hour = now.getHours();
+            if(hour.toString().length === 1) {
+                hour = "0" + hour;
+            }
+            minute = now.getMinutes();
+            if(minute.toString().length === 1) {
+                minute = "0" + minute;
+            }
+            timeEL.textContent = `${hour}:${minute}`;
+        }, 3000);
     }
 }
 
