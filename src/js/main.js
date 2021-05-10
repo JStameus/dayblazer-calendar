@@ -79,6 +79,7 @@ const screenBlocker = document.querySelector("#screen_blocker");
 const summaryContainer = document.querySelector("#day_view_full_summary");
 const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const checkoutButton = document.querySelector("#day_view_full_controlpanel_checkout");
+const addNewButton = document.querySelector("#day_view_full_controlpanel_add");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 scheduleContainer.addEventListener("click", (e) => {
     let checkbox = null;
@@ -112,6 +113,13 @@ closeDayViewButton.addEventListener("click", () => {
 checkoutButton.addEventListener("click", () => {
     alert("TODO: Check out events and get XP!");
 });
+addNewButton.addEventListener("click", () => {
+    toggleElementVisibility(editorWindow, editorBlocker, 210);
+});
+
+// === EDITOR ===
+const editorBlocker = document.querySelector("#editor_blocker");
+const editorWindow = document.querySelector("#event_editor");
 
 // === RIGHT SIDE MENU ===
 const rightMenu = document.querySelector("#menu_right");

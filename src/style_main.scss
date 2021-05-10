@@ -19,7 +19,7 @@ main {
         height: calc(100vh - 4rem);
     }
 
-    #screen_blocker {
+    .blocker {
         position: fixed;
         z-index: 2;
         left: 0;

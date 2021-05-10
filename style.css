@@ -329,6 +329,60 @@ button:hover {
   float: inline-start;
 }
 
+#event_editor {
+  margin: auto;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 75vw;
+  height: 40rem;
+  transform: translateY(0);
+  box-shadow: 2px 2px 6px rgba(31, 33, 33, 0.65);
+  z-index: 5;
+  border: 1px solid #E9EFE1;
+  border-radius: 10px;
+  padding: 0.6rem;
+  background-color: #434B52;
+}
+#event_editor h2 {
+  font-family: "Girassol";
+  color: #E9EFE1;
+}
+#event_editor label {
+  font-family: "Oswald";
+  color: #E9EFE1;
+}
+#event_editor #event_editor_header {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+}
+#event_editor #event_editor_main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+#event_editor #event_editor_main > * {
+  margin: 0.2rem;
+  border: 2px solid red;
+}
+#event_editor #event_editor_main #editor_main_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#event_editor #event_editor_main #editor_main_form textarea {
+  resize: none;
+}
+#event_editor #event_editor_main #editor_main_summary {
+  background-color: #33383D;
+  border-radius: 5px;
+  padding: 0.6rem;
+}
+#event_editor #event_editor_footer {
+  border: 1px solid blue;
+}
+
 .event_preview {
   pointer-events: none;
 }
@@ -569,7 +623,7 @@ main .monthView_container {
   background-repeat: no-repeat;
   height: calc(100vh - 4rem);
 }
-main #screen_blocker {
+main .blocker {
   position: fixed;
   z-index: 2;
   left: 0;
@@ -577,12 +631,12 @@ main #screen_blocker {
   width: 100vw;
   height: calc(100vh - 4rem);
 }
-main #screen_blocker.enabled {
+main .blocker.enabled {
   background-color: rgba(31, 33, 33, 0.65);
   box-shadow: 0 0 48px 24px black inset;
   transition: 0.3s;
 }
-main #screen_blocker.disabled {
+main .blocker.disabled {
   background-color: rgba(51, 56, 61, 0);
   box-shadow: 0 0 48px 24px rgba(0, 0, 0, 0) inset;
   transition: 0.2s;

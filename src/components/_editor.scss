@@ -1,0 +1,53 @@
+#event_editor {
+    @include center-container(75vw, 40rem, 0); 
+    @include apply-box-shadow($bg-color-black, $opacity-medium, 6px);
+    z-index: 5;
+
+    border: 1px solid $fg-color-normal;
+    border-radius: $border-radius-large;
+    padding: 0.6rem;
+    background-color: $bg-color-normal;
+    h2 {
+        font-family: $title-font;
+        color: $fg-color-normal;
+    }
+    label {
+        font-family: $ui-font;
+        color: $fg-color-normal;
+    }
+
+    // == HEADER ==
+    #event_editor_header {
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+    }
+
+    // == MAIN ==
+    #event_editor_main {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        > * {
+            margin: 0.2rem;
+            border: 2px solid red;
+        }
+
+        #editor_main_form {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            textarea {
+                resize: none;
+            }
+        }
+
+        #editor_main_summary {
+            @include info-box(0.6rem);
+        }
+    }
+
+    // == FOOTER ==
+    #event_editor_footer {
+        border: 1px solid blue; 
+    }
+}
