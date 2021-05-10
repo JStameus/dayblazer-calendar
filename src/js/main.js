@@ -81,6 +81,7 @@ const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const checkoutButton = document.querySelector("#day_view_full_controlpanel_checkout");
 const addNewButton = document.querySelector("#day_view_full_controlpanel_add");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
+const closeEditorButton = document.querySelector("#editor_header_button");
 scheduleContainer.addEventListener("click", (e) => {
     let checkbox = null;
     if(e.target.classList.contains("event_main_checkbox")) {
@@ -109,6 +110,9 @@ scheduleContainer.addEventListener("click", (e) => {
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
     selectedCalendarDay = null;
+});
+closeEditorButton.addEventListener("click", () => {
+    toggleElementVisibility(editorWindow, editorBlocker, 210);
 });
 checkoutButton.addEventListener("click", () => {
     alert("TODO: Check out events and get XP!");

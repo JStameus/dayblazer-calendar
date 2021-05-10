@@ -625,7 +625,6 @@ main .monthView_container {
 }
 main .blocker {
   position: fixed;
-  z-index: 2;
   left: 0;
   top: 0;
   width: 100vw;
@@ -640,6 +639,12 @@ main .blocker.disabled {
   background-color: rgba(51, 56, 61, 0);
   box-shadow: 0 0 48px 24px rgba(0, 0, 0, 0) inset;
   transition: 0.2s;
+}
+main #screen_blocker {
+  z-index: 2;
+}
+main #editor_blocker {
+  z-index: 4;
 }
 
 /*# sourceMappingURL=style.css.map */
