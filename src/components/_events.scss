@@ -33,6 +33,10 @@
     margin: 0.3rem;
     @include apply-box-shadow($bg-color-black, $opacity-medium, 0.4rem);
 
+    hr {
+       border: 1px solid rgba($fg-color-normal, $opacity-low); 
+    }
+
     // == HEADER ==
     .schedule_event_header {
         margin: 0.2rem 0;
@@ -107,9 +111,9 @@
                padding: 0;
                color: $fg-color-normal;
                i {
-                position:relative;
-                top:50%;
-                left:50%;
+                position: relative;
+                top: 50%;
+                left: 50%;
                 transform: translate(-50%,-50%) scale(1.5);
                }
            }

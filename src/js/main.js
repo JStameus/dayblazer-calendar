@@ -76,8 +76,9 @@ const xpDisplayText = document.querySelector("#footer_xpDisplay");
 // === DAY VIEW ===
 const dayView = document.querySelector("#day_view_full");
 const screenBlocker = document.querySelector("#screen_blocker");
-const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const summaryContainer = document.querySelector("#day_view_full_summary");
+const scheduleContainer = document.querySelector("#day_view_full_schedule");
+const checkoutButton = document.querySelector("#day_view_full_controlpanel_checkout");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 scheduleContainer.addEventListener("click", (e) => {
     let checkbox = null;
@@ -101,11 +102,15 @@ scheduleContainer.addEventListener("click", (e) => {
         } else {
             console.warn(`${checkbox.id} has no 'checked/unchecked' class!`);
         }
+        selectedCalendarDay.renderControlPanel(checkoutButton);
     } 
 });
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
     selectedCalendarDay = null;
+});
+checkoutButton.addEventListener("click", () => {
+    alert("TODO: Check out events and get XP!");
 });
 
 // === RIGHT SIDE MENU ===

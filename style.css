@@ -364,6 +364,9 @@ button:hover {
   margin: 0.3rem;
   box-shadow: 2px 2px 0.4rem rgba(31, 33, 33, 0.65);
 }
+.schedule_event hr {
+  border: 1px solid rgba(233, 239, 225, 0.2);
+}
 .schedule_event .schedule_event_header {
   margin: 0.2rem 0;
   display: grid;
@@ -464,11 +467,14 @@ button:hover {
   width: 40rem;
   height: 54rem;
   transform: translateY(-2.5rem);
-  background-color: #434B52;
   z-index: 3;
+  padding: 0.6rem;
+  background-color: #434B52;
   border: 1px solid #E9EFE1;
   border-radius: 10px;
-  padding: 0.6rem;
+}
+#day_view_full > * {
+  margin: 0.5rem 0;
 }
 #day_view_full button {
   position: fixed;
@@ -499,6 +505,52 @@ button:hover {
   padding: 0.2rem;
   overflow-y: scroll;
   height: 38rem;
+}
+#day_view_full #day_view_full_controlpanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4.5rem;
+  padding: 0.8rem;
+}
+#day_view_full #day_view_full_controlpanel > * {
+  border: 1px solid rgba(233, 239, 225, 0.2);
+  border-radius: 5px;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.3rem;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout h3 {
+  pointer-events: none;
+  vertical-align: center;
+  text-align: center;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.inactive {
+  transition: 0.15s;
+  width: 3rem;
+  background-color: #33383D;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.inactive h3 {
+  color: #E9EFE1;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.active {
+  transition: 0.15s;
+  width: 8rem;
+  background-color: rgba(155, 184, 136, 0.65);
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.active h3 {
+  color: #D5EBDF;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_add {
+  color: #E9EFE1;
+  padding: 0;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_add i {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
 }
 
 * {

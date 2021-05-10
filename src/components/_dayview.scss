@@ -1,10 +1,15 @@
 #day_view_full {
     @include center-container(40rem, 54rem, -2.5rem);
-    background-color: $bg-color-normal;
     z-index: 3;
+
+    padding: 0.6rem;
+    > * {
+        margin: 0.5rem 0;
+    }
+
+    background-color: $bg-color-normal;
     border: 1px solid $fg-color-normal;
     border-radius: $border-radius-large;
-    padding: 0.6rem;
     button {
         position: fixed;
         right: 0;
@@ -31,5 +36,58 @@
         @include info-box(0.2rem);
         overflow-y: scroll;
         height: 38rem;
+    }
+    #day_view_full_controlpanel {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        height: 4.5rem;
+        padding: 0.8rem;
+
+        > * {
+           border: 1px solid rgba($fg-color-normal, $opacity-low);
+           border-radius: $border-radius-small;
+           width: 3rem;
+           height: 3rem;
+           margin: 0.3rem;
+        }
+        
+        #day_view_full_controlpanel_checkout {
+            h3 {
+                pointer-events: none;
+                vertical-align: center;
+                text-align: center;
+                
+            }
+            &.inactive {
+                transition: 0.15s;
+                width: 3rem;
+                background-color: $bg-color-darker;
+                h3 {
+                    color: $fg-color-normal;
+                }
+            }
+            &.active {
+                transition: 0.15s;
+                width: 8rem;
+                background-color: rgba($accent-color-primary, $opacity-medium);
+                h3 {
+                    color: $fg-color-tinted;
+                }
+            }
+        }
+
+        #day_view_full_controlpanel_add {
+            color: $fg-color-normal;
+            padding: 0;
+            i {
+                position: relative;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%) scale(1.5);
+            }
+        }
     }
 }

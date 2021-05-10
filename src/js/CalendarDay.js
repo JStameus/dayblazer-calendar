@@ -53,7 +53,6 @@ class CalendarDay {
             const eventDiv = document.createElement("div");
             eventDiv.classList.add(`schedule_event`);
             eventDiv.classList.add(`event_type_${obj.type}`);
-
             eventDiv.innerHTML = `
                 <div class="schedule_event_header">
                     <h3 class="event_header_time">${obj.startTime} - ${obj.endTime}</h3>
@@ -93,6 +92,30 @@ class CalendarDay {
             <h3>Tasks: <span class="tasks_done">${summary.finishedTasks}</span>/<span class="tasks_available">${summary.totalTasks}</span></h3>
         `;
         container.appendChild(summaryDiv);
+    }
+    renderControlPanel(buttonElement) {
+        let hasCheckedEvents = false;
+        let checkedEvents = 0;
+        for(let i = 0; i < this.eventList.length; i++) {
+            const obj = this.eventList[i];
+            if(obj.checked === true) {
+                checkedEvents++;
+            }
+        }
+        if(checkedEvents > 0) {
+            hasCheckedEvents = true;
+        }
+
+        if(hasCheckedEvents === true) {
+            buttonElement.classList.remove("inactive");
+            buttonElement.classList.add("active");
+            buttonElement.children[0].textContent = "Confirm";
+        }
+        else {
+            buttonElement.classList.remove("active");
+            buttonElement.classList.add("inactive");
+            buttonElement.children[0].textContent = "...";
+        }
     }
     // TODO: Can I make this less dependent on the class names matching/make it
     // more reusable? Do I need to?
