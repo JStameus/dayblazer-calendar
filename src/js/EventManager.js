@@ -45,10 +45,55 @@ function createRandomID() {
 }
 
 // TODO: Needs proper documentation!
-function addNewEvent(data, eventList) {
-    data.id = createRandomID();
-    data.finished = false;
-    eventList.push(new CalendarEvent(data));
+function addNewEvent(calendarDay, globalEventList) {
+    let obj = {};
+    obj.name = document.querySelector("#editor_input_name").value;
+    obj.type = document.querySelector("#editor_input_type").value;
+    obj.description = document.querySelector("#editor_input_description").value;
+
+    let startHour = document.querySelector("#editor_input_start_hour").value;
+    let startMinute = document.querySelector("#editor_input_start_minute").value;
+    if(startHour.toString().length != 2) {
+        startHour = "0" + startHour;
+    }
+    if(startMinute.toString().length != 2) {
+        startMinute = "0" + startMinute;
+    } 
+    obj.startTime = `${startHour}:${startMinute}`;
+    
+    let endHour = document.querySelector("#editor_input_end_hour").value;
+    let endMinute = document.querySelector("#editor_input_end_minute").value;
+    if(endHour.toString().length != 2) {
+        endHour = "0" + endHour;
+    }
+    if(endMinute.toString().length != 2) {
+        endMinute = "0" + endMinute;
+    } 
+    obj.endTime = `${endHour}:${endMinute}`;
+    obj.difficulty = parseInt(document.querySelector("#editor_input_difficulty").value);
+    switch (obj.difficulty) {
+        // TODO: These things should ONLY be set by the server!
+        case 1:
+            obj.xpValue = 150;
+            break
+        case 2:
+            obj.xpValue = 400;
+            break;
+        case 3:
+            obj.xpValue = 750;
+            break;
+        default:
+            console.log(obj.difficulty);
+            alert("Invalid difficulty rating! Try again.");
+            return;
+    }
+    obj.checked = false;
+    obj.finished = false;
+    obj.id = createRandomID();
+
+    const newEvent = new CalendarEvent(obj);
+    globalEventList.push(newEvent);
+    calendarDay.eventList.push(newEvent);
 }
 
 // Search through a list of events and update the specified event with the new

@@ -80,6 +80,7 @@ const summaryContainer = document.querySelector("#day_view_full_summary");
 const scheduleContainer = document.querySelector("#day_view_full_schedule");
 const checkoutButton = document.querySelector("#day_view_full_controlpanel_checkout");
 const addNewButton = document.querySelector("#day_view_full_controlpanel_add");
+const confirmNewEventButton = document.querySelector("#event_editor_confirm_button");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 const closeEditorButton = document.querySelector("#editor_header_button");
 scheduleContainer.addEventListener("click", (e) => {
@@ -119,6 +120,10 @@ checkoutButton.addEventListener("click", () => {
 });
 addNewButton.addEventListener("click", () => {
     toggleElementVisibility(editorWindow, editorBlocker, 210);
+});
+confirmNewEventButton.addEventListener("click", () => {
+    addNewEvent(selectedCalendarDay, globalEventList);
+    selectedCalendarDay.renderEventPreview(dayGrid);
 });
 
 // === EDITOR ===
