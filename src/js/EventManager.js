@@ -51,11 +51,16 @@ function createRandomID() {
 }
 
 // TODO: Needs proper documentation!
-function addNewEvent(calendarDay, globalEventList) {
+function addNewEvent(calendarDay) {
     let obj = {};
-    obj.name = document.querySelector("#editor_input_name").value;
-    obj.type = document.querySelector("#editor_input_type").value;
-    obj.description = document.querySelector("#editor_input_description").value;
+    const nameInput = document.querySelector("#editor_input_name");
+    obj.name = nameInput.value;
+
+    const typeInput = document.querySelector("#editor_input_type");
+    obj.type = typeInput.value;
+
+    const descInput = document.querySelector("#editor_input_description");
+    obj.description = descInput.value;
 
     let startHour = document.querySelector("#editor_input_start_hour").value;
     let startMinute = document.querySelector("#editor_input_start_minute").value;
@@ -76,7 +81,9 @@ function addNewEvent(calendarDay, globalEventList) {
         endMinute = "0" + endMinute;
     } 
     obj.endTime = `${endHour}:${endMinute}`;
-    obj.difficulty = parseInt(document.querySelector("#editor_input_difficulty").value);
+
+    const difficultyInput = document.querySelector("#editor_input_difficulty");
+    obj.difficulty = parseInt(difficultyInput.value);
     switch (obj.difficulty) {
         // TODO: These things should ONLY be set by the server!
         case 1:
@@ -99,16 +106,80 @@ function addNewEvent(calendarDay, globalEventList) {
     obj.date = calendarDay.date;
 
     const newEvent = new CalendarEvent(obj);
-    globalEventList.push(newEvent);
     calendarDay.eventList.push(newEvent);
+
+    nameInput.value = "";
+    descInput.value = "";
+    difficultyInput.value = 1;
+}
+
+
+function updateEventEditor(id = "undefined") {
+    if (editorMode === "add") {
+        const nameInput = document.querySelector("#editor_input_name");
+        nameInput.value = "";
+        const typeInput = document.querySelector("#editor_input_type");
+        typeInput.value = "";
+        const descInput = document.querySelector("#editor_input_description");
+        descInput.value = "";
+        const difficultyInput = document.querySelector("#editor_input_difficulty");
+        difficultyInput.value = 1;
+    } else if (editorMode === "edit") {
+        let event = selectedCalendarDay.eventList.find((obj) => {
+            return obj.id === id;
+        });
+        console.log(event);
+
+        const nameInput = document.querySelector("#editor_input_name");
+        nameInput.value = event.name;
+        const typeInput = document.querySelector("#editor_input_type");
+        typeInput.value = event.type;
+        const descInput = document.querySelector("#editor_input_description");
+        descInput.value = event.description;
+        const difficultyInput = document.querySelector("#editor_input_difficulty");
+        difficultyInput.value = event.difficulty;
+    }
 }
 
 // Search through a list of events and update the specified event with the new
 // data.
 // TODO: Needs proper documentation!
-function updateEvent(data, eventId, eventList) {
-    let targetEvent = eventList.find(obj => obj.id === eventId);
-    targetEvent.updateEventInfo(data);
+function updateEvent(id) {
+    let event = selectedCalendarDay.eventList.find((obj) => {
+        return obj.id === id;
+    });
+    const nameInput = document.querySelector("#editor_input_name");
+    const typeInput = document.querySelector("#editor_input_type");
+    const descInput = document.querySelector("#editor_input_description");
+    const difficultyInput = document.querySelector("#editor_input_difficulty");
+
+    let startHour = document.querySelector("#editor_input_start_hour").value;
+    let startMinute = document.querySelector("#editor_input_start_minute").value;
+    if(startHour.toString().length != 2) {
+        startHour = "0" + startHour;
+    }
+    if(startMinute.toString().length != 2) {
+        startMinute = "0" + startMinute;
+    } 
+    let newStartTime = `${startHour}:${startMinute}`;
+    
+    let endHour = document.querySelector("#editor_input_end_hour").value;
+    let endMinute = document.querySelector("#editor_input_end_minute").value;
+    if(endHour.toString().length != 2) {
+        endHour = "0" + endHour;
+    }
+    if(endMinute.toString().length != 2) {
+        endMinute = "0" + endMinute;
+    } 
+    let newEndTime = `${endHour}:${endMinute}`;
+
+    event.name = nameInput.value;
+    event.type = typeInput.value;
+    event.description = descInput.value;
+    event.difficulty = difficultyInput.value;
+    event.startTime = newStartTime;
+    event.endTime = newEndTime;
+    
 }
 
 // TODO: Needs proper documentation!

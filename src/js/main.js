@@ -22,6 +22,8 @@ const QUERY = `u=jstameus`;
 var globalCalendarDayList = [];
 var globalEventList = [];
 var selectedCalendarDay = null;
+var editorMode = "add";
+var selectedEventID = "";
 
 // == USER XP ==
 // TODO: Should probably not be stored locally. Only modify via API calls?
@@ -127,6 +129,16 @@ scheduleContainer.addEventListener("click", (e) => {
         selectedCalendarDay.renderSummary(summaryContainer);
         postEventList(globalCalendarDayList, userData.user, userData.token); 
     }
+    // Edit events
+    if(e.target.classList.contains("event_footer_controlpanel_edit")) {
+        let parentEvent = selectedCalendarDay.eventList.find((obj) => {
+            return obj.id === e.target.dataset.parentevent
+        });
+        selectedEventID = parentEvent.id;
+        editorMode = "edit";
+        updateEventEditor(selectedEventID);
+        toggleElementVisibility(editorWindow, editorBlocker, 210);
+    }
 });
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
@@ -146,9 +158,14 @@ checkoutButton.addEventListener("click", () => {
 });
 addNewButton.addEventListener("click", () => {
     toggleElementVisibility(editorWindow, editorBlocker, 210);
+    editorMode = "add";
 });
 confirmNewEventButton.addEventListener("click", () => {
-    addNewEvent(selectedCalendarDay, globalEventList);
+    if(editorMode === "add") {
+        addNewEvent(selectedCalendarDay, globalEventList);
+    } else if (editorMode === "edit") {
+        updateEvent(selectedEventID);
+    }
     selectedCalendarDay.renderEventPreview(dayGrid);
     selectedCalendarDay.renderEventList(scheduleContainer);
     selectedCalendarDay.renderSummary(summaryContainer);
