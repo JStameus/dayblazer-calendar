@@ -125,7 +125,7 @@ scheduleContainer.addEventListener("click", (e) => {
         selectedCalendarDay.renderEventPreview(dayGrid);
         selectedCalendarDay.renderEventList(scheduleContainer);
         selectedCalendarDay.renderSummary(summaryContainer);
-        postEventList(globalEventList, userData.user, userData.token); 
+        postEventList(globalCalendarDayList, userData.user, userData.token); 
     }
 });
 closeDayViewButton.addEventListener("click", () => {
@@ -141,7 +141,7 @@ checkoutButton.addEventListener("click", () => {
     selectedCalendarDay.renderControlPanel(checkoutButton);
     selectedCalendarDay.renderEventList(scheduleContainer);
     selectedCalendarDay.renderSummary(summaryContainer);
-    postEventList(globalEventList, userData.user, userData.token); 
+    postEventList(globalCalendarDayList, userData.user, userData.token); 
 
 });
 addNewButton.addEventListener("click", () => {
@@ -154,7 +154,7 @@ confirmNewEventButton.addEventListener("click", () => {
     selectedCalendarDay.renderSummary(summaryContainer);
     toggleElementVisibility(editorWindow, editorBlocker, 210);
     // TODO: Hardcoded values, fix this!
-    postEventList(globalEventList, userData.user, userData.token); 
+    postEventList(globalCalendarDayList, userData.user, userData.token); 
 });
 
 // === EDITOR ===
@@ -178,9 +178,15 @@ function initApp() {
         .then(response => response.json())
         .then(data => {
             if(data.events) {
-                globalEventList = createEventList(data);
+                // Populate the Global Event List
+                data.events.forEach((obj) => {
+                    globalEventList.push(obj);
+                });
                 globalCalendarDayList = createCalendarDayData(currentDate);
             }
+        })
+        .then(() => {
+            globalEventList = [];
             initCalendar(currentDate, dayGrid, globalCalendarDayList);
         })
         .catch(err => {

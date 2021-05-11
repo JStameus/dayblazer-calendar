@@ -6,11 +6,17 @@
 */
 
 // Send the specified list to the specified user's event board.
-function postEventList(eventList, user, token) {
+function postEventList(dayList, user, token) {
+    let eventsToSend = [];
+    dayList.forEach((day) => {
+        day.eventList.forEach((obj) => {
+            eventsToSend.push(obj);
+        });
+    });
     const requestBody = {
         owner: user,
         guests: [],
-        events: eventList,
+        events: eventsToSend,
     }
     const options = {
         method: "POST",
