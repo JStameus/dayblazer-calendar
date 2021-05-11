@@ -315,6 +315,10 @@ button:hover {
   border-color: #E9EFE1;
 }
 
+.fa {
+  pointer-events: none;
+}
+
 .day_button_expand {
   background-color: #434B52;
   border-color: #535B61;

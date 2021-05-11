@@ -83,9 +83,9 @@ class CalendarDay {
                 <div class="schedule_event_footer">
                     <p class="event_footer_description">${obj.description}</p>
                     <div class="event_footer_controlpanel">
-                        <div class="event_footer_controlpanel_delete"><i class="fa fa-trash"></i></div>
-                        <div class="event_footer_controlpanel_edit"><i class="fa fa-edit"></i></div>
-                        <div class="event_footer_controlpanel_expand"><i class="fa fa-list"></i></div>
+                        <div class="event_footer_controlpanel_delete" data-parentevent=${obj.id}><i class="fa fa-trash"></i></div>
+                        <div class="event_footer_controlpanel_edit" data-parentevent=${obj.id}><i class="fa fa-edit"></i></div>
+                        <div class="event_footer_controlpanel_expand" data-parentevent=${obj.id}><i class="fa fa-list"></i></div>
                     </div>
                 </div>
                 <div class="schedule_event_details" style="display: none">

@@ -83,8 +83,11 @@ const addNewButton = document.querySelector("#day_view_full_controlpanel_add");
 const confirmNewEventButton = document.querySelector("#event_editor_confirm_button");
 const closeDayViewButton = document.querySelector("#day_view_button_close");
 const closeEditorButton = document.querySelector("#editor_header_button");
+// TODO: Maybe I should be more specific with this event listener and not add it
+// to this whole container?
 scheduleContainer.addEventListener("click", (e) => {
     let checkbox = null;
+    // Clicking on checkboxes
     if(e.target.classList.contains("event_main_checkbox")) {
         checkbox = e.target;
         // Find out which CalendarEvent this checkbox element belongs to.
@@ -107,6 +110,23 @@ scheduleContainer.addEventListener("click", (e) => {
         }
         selectedCalendarDay.renderControlPanel(checkoutButton);
     } 
+
+    // Delete events
+    if(e.target.classList.contains("event_footer_controlpanel_delete")) {
+        let parentEvent = selectedCalendarDay.eventList.find((obj) => {
+            return obj.id === e.target.dataset.parentevent
+        });
+        let newList = selectedCalendarDay.eventList.filter((obj) => {
+            return obj.id != parentEvent.id;
+        });
+        // TODO: The user should get a chance to confirm before the event is
+        // deleted.
+        selectedCalendarDay.eventList = newList;
+        selectedCalendarDay.renderEventPreview(dayGrid);
+        selectedCalendarDay.renderEventList(scheduleContainer);
+        selectedCalendarDay.renderSummary(summaryContainer);
+        postEventList(globalEventList, userData.user, userData.token); 
+    }
 });
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
