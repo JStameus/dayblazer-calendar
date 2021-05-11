@@ -108,6 +108,19 @@ function createEventList(data) {
 }
 
 /**
+ * Updates the global event list by reading from the events of all CalendarDays.
+*/
+function updateEventList(dayList) {
+    let newEventList = [];
+    dayList.forEach((day) => {
+        day.eventList.forEach((obj) => {
+            newEventList.push(obj);
+        });
+    });
+    return newEventList;
+}
+
+/**
  * Creates and returns a div displaying a number corresponding to the date the
  * div represents on the calendar. The div also has a CSS class which tells it
  * if it belongs to the previous, current or next month.

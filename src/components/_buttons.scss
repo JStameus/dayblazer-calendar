@@ -17,6 +17,10 @@ button {
     @include default-button();
 }
 
+.fa {
+    pointer-events: none;
+}
+
 .day_button_expand {
     background-color: $bg-color-normal;
     border-color: $bg-color-lighter;

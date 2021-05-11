@@ -6,6 +6,7 @@
 		<meta name="description" content="A more adventurous calendar app!" />
 		<meta name="author" content="JStameus" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://use.fontawesome.com/03e9a09dc0.js"></script>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 
@@ -52,10 +53,66 @@
                 <div id="day_view_full_schedule">
                 
                 </div>
+                <div id="day_view_full_controlpanel">
+                    <div id="day_view_full_controlpanel_checkout"
+                             class="inactive">
+                        <h3>...</h3>
+                    </div>
+                    <div id="day_view_full_controlpanel_add">
+                        <i class="fa fa-plus-square"></i>
+                    </div>
+                </div>
             </section>
-            <div id="screen_blocker" class="disabled" style="display: none">
+            <div id="screen_blocker" class="disabled blocker" style="display: none"></div>
 
+            <div id="event_editor" style="display: none">
+                <div id="event_editor_header">
+                    <h2 id="editor_header_label">Create New Event</h2>    
+                    <div id="editor_header_button_container">
+                        <div id="editor_header_button">
+                           <i class="fa fa-close"></i> 
+                        </div>
+                    </div>
+                </div>
+                <hr class="hr_strong">
+                <div id="event_editor_main">
+                   <div id="editor_main_form">
+                        <label for="editor_input_name">Name</label>
+                        <input type="text" id="editor_input_name">
+
+                        <label for="editor_input_type">Event Type</label>
+                        <select id="editor_input_type">
+                            <option value="task">Task</option> 
+                            <option value="event">Event</option>
+                            <option value="reminder">Reminder</option>
+                        </select>
+
+                        <label for="editor_input_description">Description/Note</label>
+                       <textarea id="editor_input_description" cols="20" rows="6"></textarea> 
+                       <hr class="hr_faint">
+                       <label for="editor_input_start_hour">Start Time</label>
+                       <input type="number" id="editor_input_start_hour" min="00" max="23">
+                       <input type="number" id="editor_input_start_minute" min="00" max="59">
+
+                       <label for="editor_input_end_hour">End Time</label>
+                       <input type="number" id="editor_input_end_hour" min="00" max="23">
+                       <input type="number" id="editor_input_end_minute" min="00" max="59">
+            
+                       <label for="editor_input_difficulty">Difficulty (1-3)</label>
+                       <input type="number" id="editor_input_difficulty" min="1" max="3">
+
+                   </div> 
+                   <div id="editor_main_summary">
+                       
+                   </div>
+                </div>
+                <div id="event_editor_footer">
+                   <button id="event_editor_confirm_button">Confirm</button> 
+                </div>
             </div>
+            <div id="editor_blocker" class="disabled blocker" style="display: none"></div>
+
+
             <div class="monthView_container">
                 <div id="monthView_dayLabels">
                     <h3>Monday</h3>

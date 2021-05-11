@@ -19,15 +19,18 @@ main {
         height: calc(100vh - 4rem);
     }
 
-    #screen_blocker {
+    .blocker {
         position: fixed;
-        z-index: 2;
         left: 0;
         top: 0;
         width: 100vw;
         height: calc(100vh - 4rem);
-        //background-color: rgba($bg-color-black, $opacity-medium);
-        //box-shadow: 0 0 48px 24px black inset;
         @include blackout-toggle();
+    }
+    #screen_blocker {
+        z-index: 2;
+    }
+    #editor_blocker {
+        z-index: 4;
     }
 }

@@ -315,6 +315,10 @@ button:hover {
   border-color: #E9EFE1;
 }
 
+.fa {
+  pointer-events: none;
+}
+
 .day_button_expand {
   background-color: #434B52;
   border-color: #535B61;
@@ -327,6 +331,60 @@ button:hover {
   padding: 0.1rem 1rem;
   margin: 0;
   float: inline-start;
+}
+
+#event_editor {
+  margin: auto;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 75vw;
+  height: 40rem;
+  transform: translateY(0);
+  box-shadow: 2px 2px 6px rgba(31, 33, 33, 0.65);
+  z-index: 5;
+  border: 1px solid #E9EFE1;
+  border-radius: 10px;
+  padding: 0.6rem;
+  background-color: #434B52;
+}
+#event_editor h2 {
+  font-family: "Girassol";
+  color: #E9EFE1;
+}
+#event_editor label {
+  font-family: "Oswald";
+  color: #E9EFE1;
+}
+#event_editor #event_editor_header {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+}
+#event_editor #event_editor_main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+#event_editor #event_editor_main > * {
+  margin: 0.2rem;
+  border: 2px solid red;
+}
+#event_editor #event_editor_main #editor_main_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#event_editor #event_editor_main #editor_main_form textarea {
+  resize: none;
+}
+#event_editor #event_editor_main #editor_main_summary {
+  background-color: #33383D;
+  border-radius: 5px;
+  padding: 0.6rem;
+}
+#event_editor #event_editor_footer {
+  border: 1px solid blue;
 }
 
 .event_preview {
@@ -364,6 +422,9 @@ button:hover {
   margin: 0.3rem;
   box-shadow: 2px 2px 0.4rem rgba(31, 33, 33, 0.65);
 }
+.schedule_event hr {
+  border: 1px solid rgba(233, 239, 225, 0.2);
+}
 .schedule_event .schedule_event_header {
   margin: 0.2rem 0;
   display: grid;
@@ -383,6 +444,15 @@ button:hover {
 }
 .schedule_event .schedule_event_header .event_header_xp_value span {
   color: #F8ECBC;
+}
+.schedule_event .schedule_event_header .event_header_xp_value.earned {
+  background-color: #33383D;
+  color: #9bb888;
+  text-decoration: line-through;
+}
+.schedule_event .schedule_event_header .event_header_xp_value.earned span {
+  color: #9bb888;
+  text-decoration: line-through;
 }
 .schedule_event .schedule_event_main {
   margin: 0.2rem 0;
@@ -415,9 +485,31 @@ button:hover {
   background-color: #434B52;
   transition: 0.1s;
 }
-.schedule_event p {
+.schedule_event .schedule_event_footer {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.schedule_event .schedule_event_footer .event_footer_description {
   font-family: "Ubuntu Condensed";
   color: #E9EFE1;
+}
+.schedule_event .schedule_event_footer .event_footer_controlpanel {
+  display: flex;
+  justify-content: space-evenly;
+}
+.schedule_event .schedule_event_footer .event_footer_controlpanel div {
+  border: 1px solid rgba(233, 239, 225, 0.2);
+  border-radius: 5px;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: #E9EFE1;
+}
+.schedule_event .schedule_event_footer .event_footer_controlpanel div i {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
 }
 .schedule_event.event_type_event {
   background-color: #4da079;
@@ -431,6 +523,17 @@ button:hover {
 .schedule_event.event_type_default {
   background-color: #666666;
 }
+.schedule_event.event_div_finished {
+  background-color: #434B52;
+}
+
+.event_name_unfinished {
+  text-decoration: none;
+}
+
+.event_name_finished {
+  text-decoration: line-through;
+}
 
 #day_view_full {
   margin: auto;
@@ -442,11 +545,14 @@ button:hover {
   width: 40rem;
   height: 54rem;
   transform: translateY(-2.5rem);
-  background-color: #434B52;
   z-index: 3;
+  padding: 0.6rem;
+  background-color: #434B52;
   border: 1px solid #E9EFE1;
   border-radius: 10px;
-  padding: 0.6rem;
+}
+#day_view_full > * {
+  margin: 0.5rem 0;
 }
 #day_view_full button {
   position: fixed;
@@ -478,6 +584,52 @@ button:hover {
   overflow-y: scroll;
   height: 38rem;
 }
+#day_view_full #day_view_full_controlpanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4.5rem;
+  padding: 0.8rem;
+}
+#day_view_full #day_view_full_controlpanel > * {
+  border: 1px solid rgba(233, 239, 225, 0.2);
+  border-radius: 5px;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.3rem;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout h3 {
+  pointer-events: none;
+  vertical-align: center;
+  text-align: center;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.inactive {
+  transition: 0.15s;
+  width: 3rem;
+  background-color: #33383D;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.inactive h3 {
+  color: #E9EFE1;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.active {
+  transition: 0.15s;
+  width: 8rem;
+  background-color: rgba(155, 184, 136, 0.65);
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_checkout.active h3 {
+  color: #D5EBDF;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_add {
+  color: #E9EFE1;
+  padding: 0;
+}
+#day_view_full #day_view_full_controlpanel #day_view_full_controlpanel_add i {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+}
 
 * {
   margin: 0;
@@ -495,23 +647,28 @@ main .monthView_container {
   background-repeat: no-repeat;
   height: calc(100vh - 4rem);
 }
-main #screen_blocker {
+main .blocker {
   position: fixed;
-  z-index: 2;
   left: 0;
   top: 0;
   width: 100vw;
   height: calc(100vh - 4rem);
 }
-main #screen_blocker.enabled {
+main .blocker.enabled {
   background-color: rgba(31, 33, 33, 0.65);
   box-shadow: 0 0 48px 24px black inset;
   transition: 0.3s;
 }
-main #screen_blocker.disabled {
+main .blocker.disabled {
   background-color: rgba(51, 56, 61, 0);
   box-shadow: 0 0 48px 24px rgba(0, 0, 0, 0) inset;
   transition: 0.2s;
+}
+main #screen_blocker {
+  z-index: 2;
+}
+main #editor_blocker {
+  z-index: 4;
 }
 
 /*# sourceMappingURL=style.css.map */

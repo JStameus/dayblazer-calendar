@@ -19,6 +19,7 @@ class CalendarDay {
             return;
         }
 
+        // TODO: This currently renders duplicates when adding an event. 
         this.eventList.forEach(obj => {
             const nameLabel = document.createElement("p");
             nameLabel.textContent = obj.name;
@@ -34,37 +35,65 @@ class CalendarDay {
         });
     }
     renderEventList(container) {
-        // Update the relevant elements of the dayView to show the info
-        // contained in this CalendarDay
         // TODO: For this implementation to be ideal, all data sent between
         // client and server has to be strictly validated and secured.
         container.innerHTML = ``;
         this.eventList.forEach(obj => {
             // If the event is a task, it should have a checkbox and XP display
             let xpDisplay = "";
+            let difficultyDisplay = "";
             let checkBox = "";
             let checkBoxValue = ""; 
+            let nameClass = "";
+            if(obj.finished === true) {
+                nameClass = "event_name_finished";
+            }
+            else {
+                nameClass = "event_name_unfinished";
+            }
             if(obj.type === "task") {
-                xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
-                checkBoxValue = obj.isFinished ? "checked" : "unchecked";
-                //checkBox = `<input type="checkbox" value="${checkBoxValue}" class="event_main_checkbox" id="event_checkbox_${obj.id}">`;
-                checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentEvent=${obj.id}></div>`;
+                checkBoxValue = obj.checked ? "checked" : "unchecked";
+                if(obj.finished === false) {
+                    xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
+                    checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentevent=${obj.id}></div>`;
+                }
+                else {
+                    checkBox = "";
+                    xpDisplay = `<h3 class="event_header_xp_value earned"><span>${obj.xpValue}</span> XP</h3>`;
+                }
+                difficultyDisplay = `<h3 class="event_details_difficulty">Difficulty: ${obj.difficulty}</h3>`;
+
             }
             const eventDiv = document.createElement("div");
             eventDiv.classList.add(`schedule_event`);
             eventDiv.classList.add(`event_type_${obj.type}`);
-
+            if(obj.finished === true) {
+                eventDiv.classList.add("event_div_finished");
+            }
             eventDiv.innerHTML = `
                 <div class="schedule_event_header">
                     <h3 class="event_header_time">${obj.startTime} - ${obj.endTime}</h3>
                     ${xpDisplay}
                 </div>
                 <div class="schedule_event_main">
-                    <h2 class="schedule_event_name">${obj.name}</h2>
+                    <h2 class="schedule_event_name ${nameClass}">${obj.name}</h2>
                     ${checkBox}
                 </div>
                 <hr>
-                <p class="schedule_event_description">${obj.description}</p>
+                <div class="schedule_event_footer">
+                    <p class="event_footer_description">${obj.description}</p>
+                    <div class="event_footer_controlpanel">
+                        <div class="event_footer_controlpanel_delete" data-parentevent=${obj.id}><i class="fa fa-trash"></i></div>
+                        <div class="event_footer_controlpanel_edit" data-parentevent=${obj.id}><i class="fa fa-edit"></i></div>
+                        <div class="event_footer_controlpanel_expand" data-parentevent=${obj.id}><i class="fa fa-list"></i></div>
+                    </div>
+                </div>
+                <div class="schedule_event_details" style="display: none">
+                    ${difficultyDisplay}
+                    <h3 class="event_details_start">Start: ${obj.startTime}</h3>    
+                    <h3 class="event_details_start">End: ${obj.endTime}</h3>    
+                    <h3 class="event_details_location">Location: N/A</h3>    
+                </div>
             `;
             container.appendChild(eventDiv);
         });
@@ -80,6 +109,30 @@ class CalendarDay {
             <h3>Tasks: <span class="tasks_done">${summary.finishedTasks}</span>/<span class="tasks_available">${summary.totalTasks}</span></h3>
         `;
         container.appendChild(summaryDiv);
+    }
+    renderControlPanel(buttonElement) {
+        let hasCheckedEvents = false;
+        let checkedEvents = 0;
+        for(let i = 0; i < this.eventList.length; i++) {
+            const obj = this.eventList[i];
+            if(obj.checked === true) {
+                checkedEvents++;
+            }
+        }
+        if(checkedEvents > 0) {
+            hasCheckedEvents = true;
+        }
+
+        if(hasCheckedEvents === true) {
+            buttonElement.classList.remove("inactive");
+            buttonElement.classList.add("active");
+            buttonElement.children[0].textContent = "Confirm";
+        }
+        else {
+            buttonElement.classList.remove("active");
+            buttonElement.classList.add("inactive");
+            buttonElement.children[0].textContent = "...";
+        }
     }
     // TODO: Can I make this less dependent on the class names matching/make it
     // more reusable? Do I need to?
@@ -182,5 +235,13 @@ class CalendarDay {
             }
         }
         return {earnedXP: earnedXP, totalXP: totalXP, finishedTasks: finishedTasks, totalTasks: totalTasks, totalEvents: totalEvents};
+    }
+    finishCheckedEvents() {
+        this.eventList.forEach((obj) => {
+            if (obj.checked === true) {
+                obj.finished = true;
+                obj.checked = false;
+            }
+        });
     }
 }
