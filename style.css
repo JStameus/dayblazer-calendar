@@ -441,6 +441,15 @@ button:hover {
 .schedule_event .schedule_event_header .event_header_xp_value span {
   color: #F8ECBC;
 }
+.schedule_event .schedule_event_header .event_header_xp_value.earned {
+  background-color: #33383D;
+  color: #9bb888;
+  text-decoration: line-through;
+}
+.schedule_event .schedule_event_header .event_header_xp_value.earned span {
+  color: #9bb888;
+  text-decoration: line-through;
+}
 .schedule_event .schedule_event_main {
   margin: 0.2rem 0;
   display: grid;
@@ -509,6 +518,17 @@ button:hover {
 }
 .schedule_event.event_type_default {
   background-color: #666666;
+}
+.schedule_event.event_div_finished {
+  background-color: #434B52;
+}
+
+.event_name_unfinished {
+  text-decoration: none;
+}
+
+.event_name_finished {
+  text-decoration: line-through;
 }
 
 #day_view_full {

@@ -90,6 +90,7 @@ function addNewEvent(calendarDay, globalEventList) {
     obj.checked = false;
     obj.finished = false;
     obj.id = createRandomID();
+    obj.date = calendarDay.date;
 
     const newEvent = new CalendarEvent(obj);
     globalEventList.push(newEvent);

@@ -56,6 +56,15 @@
             span {
                 color: $accent-color-secondary;
             }
+            &.earned {
+                background-color: $bg-color-darker;
+                color: $accent-color-primary;
+                text-decoration: line-through;
+                span {
+                    color: $accent-color-primary;
+                    text-decoration: line-through;
+                }
+            }
         }
     }
 
@@ -131,4 +140,15 @@
     &.event_type_default {
         background-color: $event-color-default;
     }
+    &.event_div_finished {
+       background-color: $bg-color-normal; 
+    }
+}
+
+.event_name_unfinished {
+    text-decoration: none;
+}
+
+.event_name_finished {
+    text-decoration: line-through;
 }

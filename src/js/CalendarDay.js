@@ -19,6 +19,7 @@ class CalendarDay {
             return;
         }
 
+        // TODO: This currently renders duplicates when adding an event. 
         this.eventList.forEach(obj => {
             const nameLabel = document.createElement("p");
             nameLabel.textContent = obj.name;
@@ -43,23 +44,39 @@ class CalendarDay {
             let difficultyDisplay = "";
             let checkBox = "";
             let checkBoxValue = ""; 
+            let nameClass = "";
+            if(obj.finished === true) {
+                nameClass = "event_name_finished";
+            }
+            else {
+                nameClass = "event_name_unfinished";
+            }
             if(obj.type === "task") {
-                xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
-                checkBoxValue = obj.isFinished ? "checked" : "unchecked";
-                checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentevent=${obj.id}></div>`;
+                checkBoxValue = obj.checked ? "checked" : "unchecked";
+                if(obj.finished === false) {
+                    xpDisplay = `<h3 class="event_header_xp_value"><span>${obj.xpValue}</span> XP</h3>`;
+                    checkBox = `<div class="event_main_checkbox ${checkBoxValue}" id="event_checkbox_${obj.id}" data-parentevent=${obj.id}></div>`;
+                }
+                else {
+                    checkBox = "";
+                    xpDisplay = `<h3 class="event_header_xp_value earned"><span>${obj.xpValue}</span> XP</h3>`;
+                }
                 difficultyDisplay = `<h3 class="event_details_difficulty">Difficulty: ${obj.difficulty}</h3>`;
 
             }
             const eventDiv = document.createElement("div");
             eventDiv.classList.add(`schedule_event`);
             eventDiv.classList.add(`event_type_${obj.type}`);
+            if(obj.finished === true) {
+                eventDiv.classList.add("event_div_finished");
+            }
             eventDiv.innerHTML = `
                 <div class="schedule_event_header">
                     <h3 class="event_header_time">${obj.startTime} - ${obj.endTime}</h3>
                     ${xpDisplay}
                 </div>
                 <div class="schedule_event_main">
-                    <h2 class="schedule_event_name">${obj.name}</h2>
+                    <h2 class="schedule_event_name ${nameClass}">${obj.name}</h2>
                     ${checkBox}
                 </div>
                 <hr>
@@ -218,5 +235,13 @@ class CalendarDay {
             }
         }
         return {earnedXP: earnedXP, totalXP: totalXP, finishedTasks: finishedTasks, totalTasks: totalTasks, totalEvents: totalEvents};
+    }
+    finishCheckedEvents() {
+        this.eventList.forEach((obj) => {
+            if (obj.checked === true) {
+                obj.finished = true;
+                obj.checked = false;
+            }
+        });
     }
 }

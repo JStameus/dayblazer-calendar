@@ -110,13 +110,19 @@ scheduleContainer.addEventListener("click", (e) => {
 });
 closeDayViewButton.addEventListener("click", () => {
     toggleElementVisibility(dayView, screenBlocker, 210);
+    // TODO: The "Confirm" button should be reset here
     selectedCalendarDay = null;
 });
 closeEditorButton.addEventListener("click", () => {
     toggleElementVisibility(editorWindow, editorBlocker, 210);
 });
 checkoutButton.addEventListener("click", () => {
-    alert("TODO: Check out events and get XP!");
+    selectedCalendarDay.finishCheckedEvents();
+    selectedCalendarDay.renderControlPanel(checkoutButton);
+    selectedCalendarDay.renderEventList(scheduleContainer);
+    selectedCalendarDay.renderSummary(summaryContainer);
+    postEventList(globalEventList, userData.user, userData.token); 
+
 });
 addNewButton.addEventListener("click", () => {
     toggleElementVisibility(editorWindow, editorBlocker, 210);
@@ -124,6 +130,11 @@ addNewButton.addEventListener("click", () => {
 confirmNewEventButton.addEventListener("click", () => {
     addNewEvent(selectedCalendarDay, globalEventList);
     selectedCalendarDay.renderEventPreview(dayGrid);
+    selectedCalendarDay.renderEventList(scheduleContainer);
+    selectedCalendarDay.renderSummary(summaryContainer);
+    toggleElementVisibility(editorWindow, editorBlocker, 210);
+    // TODO: Hardcoded values, fix this!
+    postEventList(globalEventList, userData.user, userData.token); 
 });
 
 // === EDITOR ===
