@@ -1,4 +1,16 @@
 class CalendarDay {
+    /**
+        The CalendarDay class represents a locally stored day in the user's
+        calendar, as well as all the events the user has fetched from their
+        profile's event board, divided into the eventLists of their respective
+        CalendarDays.  It is also responsible for rendering HTML elements that are
+        unique to each instance of a CalendarDay, such as visual elements
+        representing events.
+        @param {String} dateString A string representing a date in the
+        DD-MM-YYYY format. This is used to identify which events in the fetched
+        data belong to this particular CalendarDay, as well as to provide basic
+        information for rendering dashboards, timetables etc.
+    */
     constructor(dateString) {
         this.date = dateString;
         this.refreshEventList();
